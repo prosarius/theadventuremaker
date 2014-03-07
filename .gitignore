@@ -1,2 +1,5 @@
 nbproject/
 *.exe
+/build/
+/dist/
+.dep.inc
