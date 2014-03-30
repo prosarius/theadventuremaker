@@ -1,7 +1,7 @@
 #ifndef SCREEN_H
 #define	SCREEN_H
 #include <stdlib.h>
-#include <iostream>
+#include <vector>
 using namespace std;
 class Screen {
 public:
@@ -12,11 +12,11 @@ public:
 	void setSizeY(int y);
 	int getSizeX();
 	int getSizeY();
-	void setImagePath(string path);
-	string getImagePath();
+	void addLayer();
+	ScreenLayer* Screen::getLayer(int index);
 private:
 	int sizeX, sizeY, offsetX, offsetY;
-	string imagePath;
+	vector<ScreenLayer> layers;
 };
 
 #endif	/* SCREEN_H */
