@@ -8,7 +8,9 @@
 #ifndef SCREENLAYER_H
 #define	SCREENLAYER_H
 #include <vector>
-
+#include "Character.h"
+#include "ScreenItem.h"
+#include "Image.h"
 class ScreenLayer {
 public:
 	ScreenLayer();
@@ -18,8 +20,8 @@ public:
 	void addItem(ScreenItem* item);
 private:
 	Image background;
-	vector<Character*> characters;
-	vector<ScreenItem*> items;	
+	std::vector<Character*> characters;
+	std::vector<ScreenItem*> items;	
 };
 
 #endif	/* SCREENLAYER_H */

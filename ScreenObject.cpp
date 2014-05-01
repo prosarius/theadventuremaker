@@ -15,6 +15,6 @@ ScreenObject::ScreenObject(const ScreenObject& orig){
 
 ScreenObject::~ScreenObject() {
 }
-void addAnimation(Animation animation){
+void ScreenObject::addAnimation(Animation animation){
 	this->animations.push_back(animation);
 }

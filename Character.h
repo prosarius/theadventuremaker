@@ -8,18 +8,21 @@
 #ifndef CHARACTER_H
 #define	CHARACTER_H
 #include <array>
+#include "Position.h"
+#include "Animation.h"
+#include "ScreenObject.h"
 
 class Character : ScreenObject{
 public:
-	array<Animation*,4> directionAnimation;
+	std::array<Animation*,4> directionAnimation;
 	Animation* currentAnimation;
 	Character();
 	Character(const Character& orig);
 	virtual ~Character();
-	void move(int x, int y);
+	void move(int direction);
 	void turn(int direction);
 private:
-
+	Position position;
 };
 
 #endif	/* CHARACTER_H */

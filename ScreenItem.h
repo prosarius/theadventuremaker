@@ -7,8 +7,9 @@
 
 #ifndef ITEM_H
 #define	ITEM_H
+#include "ScreenObject.h"
 
-class ScreenItem : ScreenObject {
+class ScreenItem : public ScreenObject {
 public:
 	ScreenItem();
 	ScreenItem(const ScreenItem& orig);

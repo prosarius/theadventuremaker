@@ -1,13 +1,2 @@
-ARGS= -std=c++0x
-
-all: Screen.o main.o
-	g++ Screen.o main.o -o main ${ARGS}
-
-main.o: main.cpp
-	g++ -c main.cpp ${ARGS}
-
-Screen.o: Screen.cpp
-	g++ -c Screen.cpp ${ARGS}
-
-clean:
-	rm -rf *.o main
+all:
+	g++ -o main Animation.cpp Character.cpp Image.cpp Position.cpp Screen.cpp ScreenItem.cpp ScreenLayer.cpp ScreenObject.cpp main.cpp -Wall -O2 -std=c++11

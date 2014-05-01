@@ -8,8 +8,10 @@
 #ifndef SCREENOBJECT_H
 #define	SCREENOBJECT_H
 #include <vector>
+#include "Animation.h"
+
 class ScreenObject {
-	vector<Animation> animations;
+	std::vector<Animation> animations;
 	int posX, posY;
 public:
 	ScreenObject();

@@ -2,6 +2,7 @@
 #define	SCREEN_H
 #include <stdlib.h>
 #include <vector>
+#include "ScreenLayer.h"
 using namespace std;
 class Screen {
 public:
@@ -13,7 +14,7 @@ public:
 	int getSizeX();
 	int getSizeY();
 	void addLayer();
-	ScreenLayer* Screen::getLayer(int index);
+	ScreenLayer* getLayer(int index);
 private:
 	int sizeX, sizeY, offsetX, offsetY;
 	vector<ScreenLayer> layers;
