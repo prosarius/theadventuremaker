@@ -8,13 +8,17 @@
 #include "Character.h"
 #include "defines.h"
 
-Character::Character() {
+Character::Character(std::string name) {
+	this->name = name;
 }
-
-Character::Character(const Character& orig) {
-}
-
 Character::~Character() {
+}
+std::string Character::getName(){
+	return this->name;
+}
+
+void Character::setName(std::string name){
+	this->name = name;
 }
 void Character::move(int direction){
 	float currX = this->position.getX();

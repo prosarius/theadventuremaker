@@ -8,6 +8,7 @@
 #ifndef CHARACTER_H
 #define	CHARACTER_H
 #include <array>
+#include <stdlib.h>
 #include "Position.h"
 #include "Animation.h"
 #include "ScreenObject.h"
@@ -16,12 +17,14 @@ class Character : ScreenObject{
 public:
 	std::array<Animation*,4> directionAnimation;
 	Animation* currentAnimation;
-	Character();
-	Character(const Character& orig);
+	Character(std::string name);
+	std::string getName();
+	void setName(std::string name);
 	virtual ~Character();
 	void move(int direction);
 	void turn(int direction);
 private:
+	std::string name;
 	Position position;
 };
 
