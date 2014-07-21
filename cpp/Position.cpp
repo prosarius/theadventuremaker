@@ -1,12 +1,5 @@
-/* 
- * File:   Position.cpp
- * Author: morion
- * 
- * Created on 1. Mai 2014, 05:12
- */
-
-#include "Position.h"
-#include "Animation.h"
+#include "../h/Position.h"
+#include "../h/Animation.h"
 
 Position::Position() {
 }

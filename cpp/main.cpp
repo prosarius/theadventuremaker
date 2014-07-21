@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <vector>
-#include "Screen.h"
+#include "../h/Screen.h"
 using namespace std;
 
 int main(int argc, char** argv) {

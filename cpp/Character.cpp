@@ -1,12 +1,5 @@
-/* 
- * File:   Character.cpp
- * Author: morion
- * 
- * Created on 28. März 2014, 20:21
- */
-
-#include "Character.h"
-#include "defines.h"
+#include "../h/Character.h"
+#include "../h/defines.h"
 
 Character::Character(std::string name) {
 	this->name = name;

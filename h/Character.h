@@ -1,10 +1,3 @@
-/* 
- * File:   Character.h
- * Author: morion
- *
- * Created on 28. März 2014, 20:21
- */
-
 #ifndef CHARACTER_H
 #define	CHARACTER_H
 #include <array>

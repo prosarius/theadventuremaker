@@ -1,10 +1,3 @@
-/* 
- * File:   defines.h
- * Author: morion
- *
- * Created on 1. Mai 2014, 05:18
- */
-
 #ifndef DEFINES_H
 #define	DEFINES_H
 

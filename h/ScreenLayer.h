@@ -1,10 +1,3 @@
-/* 
- * File:   ScreenLayer.h
- * Author: morion
- *
- * Created on 30. März 2014, 20:19
- */
-
 #ifndef SCREENLAYER_H
 #define	SCREENLAYER_H
 #include <vector>

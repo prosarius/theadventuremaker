@@ -1,11 +1,4 @@
-/* 
- * File:   screenObject.cpp
- * Author: morion
- * 
- * Created on 28. März 2014, 20:13
- */
-
-#include "ScreenObject.h"
+#include "../h/ScreenObject.h"
 
 ScreenObject::ScreenObject() {
 }

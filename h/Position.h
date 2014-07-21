@@ -1,10 +1,3 @@
-/* 
- * File:   Position.h
- * Author: morion
- *
- * Created on 1. Mai 2014, 05:12
- */
-
 #ifndef POSITION_H
 #define	POSITION_H
 

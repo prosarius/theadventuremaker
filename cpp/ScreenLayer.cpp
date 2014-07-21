@@ -1,11 +1,4 @@
-/* 
- * File:   ScreenLayer.cpp
- * Author: morion
- * 
- * Created on 30. März 2014, 20:19
- */
-
-#include "ScreenLayer.h"
+#include "../h/ScreenLayer.h"
 #include <iostream>
 
 ScreenLayer::ScreenLayer() {
