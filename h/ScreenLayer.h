@@ -25,7 +25,7 @@ private:
 	string name;
 	Image background;
 	vector<Character*> characters;
-	vector<ScreenItem*> items;	
+	vector<ScreenItem*> items;
 };
 
 #endif	/* SCREENLAYER_H */

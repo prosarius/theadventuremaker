@@ -1,27 +1,35 @@
 #include "../h/Position.h"
-#include "../h/Animation.h"
 
-Position::Position() {
+using namespace std;
+Position::Position() : valX(0), valY(0) {
+}
+Position::Position(float x, float y) : valX(x), valY(y) {
 }
 
-Position::Position(const Position& orig) {
+void Position::setX(float x) {
+	this->valX = x;
+	this->calcMagnitude();
 }
-
-Position::~Position() {
+void Position::setY(float y) {
+	this->valY = y;
+	this->calcMagnitude();
 }
-void Position::setX(float x){
-	this->x = x;
+void Position::setXY(float x, float y) {
+	this->valX = x;
+	cout << x << typeid(x).name() << " | " << y << typeid(y).name() << endl;
+	this->valY = y;
+	this->calcMagnitude();
 }
-void Position::setY(float y){
-	this->y = y;
+float Position::getX() {
+	cout << "getX" << endl;
+	return this->valX;
 }
-void Position::setXY(float x, float y){
-	this->x = x;
-	this->y = y;
+float Position::getY() {
+	return this->valY;
 }
-float Position::getX(){
-	return this->x;
+void Position::calcMagnitude() {
+	//this->magnitude = sqrt(this->valX * this->valX + this->valY * this->valY);
 }
-float Position::getY(){
-	return this->y;
+float Position::getMagnitude() {
+	return this->magnitude;
 }

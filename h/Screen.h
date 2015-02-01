@@ -2,29 +2,35 @@
 #define	SCREEN_H
 #include <stdlib.h>
 #include <vector>
+#include <string>
 #include <iostream>
+#include <algorithm>
 #include "Character.h"
-#include "ScreenLayer.h"
 using namespace std;
+
+class Character;
 class Screen {
+	int width, height;
+	Character* player;
+	vector<ScreenObject*> screenObjects;
+	string name, backgroundPath;
 public:
-	Screen();
-	Screen(const Screen& orig);
-	virtual ~Screen();
-	void setSizeX(int x);
-	void setSizeY(int y);
-	int getSizeX();
-	int getSizeY();
-	void addLayer(string name);
-	vector<ScreenLayer*> getAllLayers();
-	vector<Character*> getAllCharacters();
-	vector<string> getAllLayerNames();
-	vector<string> getAllCharacterNames();
-	ScreenLayer* getLayer(int index);
-	ScreenLayer* getLastLayer();
-private:
-	int sizeX, sizeY, offsetX, offsetY;
-	vector<ScreenLayer> layers;
+	Screen(int width, int height);
+	Screen(string name, int width, int height, string path);
+	Screen(string name, int width, int height);
+	void setWidth(int x);
+	void setHeight(int y);
+	void addPlayer(Character*);
+	void addScreenObject(ScreenObject* screenObject);
+	int getWidth();
+	int getHeight();
+	string getName();
+	Character* getPlayer();
+	//vector<Character*> getAllCharacters();
+	//vector<string> getAllCharacterNames();
+	void setTexture(string path);
+	vector<ScreenObject*> getScreenObjects();
+	string getBackgroundPath();
 };
 
 #endif	/* SCREEN_H */

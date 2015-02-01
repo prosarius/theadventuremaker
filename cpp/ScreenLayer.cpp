@@ -3,12 +3,6 @@
 
 ScreenLayer::ScreenLayer() {
 }
-ScreenLayer::ScreenLayer(string name) {
-	this->name = name;
-}
-
-ScreenLayer::~ScreenLayer() {
-}
 string ScreenLayer::getName(){
 	return this->name;
 }

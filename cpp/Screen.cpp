@@ -1,68 +1,57 @@
 #include "../h/Screen.h"
 
-Screen::Screen() {
+using namespace std;
+Screen::Screen(int width, int height) : width(width), height(height) {
 }
-
-Screen::Screen(const Screen& orig) {
+Screen::Screen(string name, int width, int height)
+	: name(name), width(width), height(height) {
 }
-
-Screen::~Screen() {
+Screen::Screen(string name, int width, int height, string backgroundPath)
+   	: name(name), width(width), height(height), backgroundPath(backgroundPath) {
 }
-
-int Screen::getSizeX(){
-    return this->sizeX;
+int Screen::getWidth() {
+    return this->width;
 }
-int Screen::getSizeY(){
-    return this->sizeY;
+int Screen::getHeight() {
+    return this->height;
 }
-void Screen::setSizeX(int x){
-    this->sizeX = x;
+void Screen::setWidth(int x) {
+    this->width = x;
 }
-void Screen::setSizeY(int y){
-    this->sizeY = y;
+void Screen::setHeight(int y) {
+    this->height = y;
 }
-void Screen::addLayer(string name = NULL){
-	this->layers.push_back(ScreenLayer(name));
+std::string Screen::getName() {
+	return name;
 }
-vector<ScreenLayer*> Screen::getAllLayers(){
-	vector<ScreenLayer*> layers;
-	for(int i = 0; i < this->layers.size(); i++){
-		layers.push_back(&this->layers.at(i));
-	}
-	return layers;
+void Screen::addPlayer(Character* character) {
+	if(find(this->screenObjects.begin(), this->screenObjects.end(), character) == this->screenObjects.end())
+		this->screenObjects.push_back(character);
+	this->player = character;
 }
-vector<Character*> Screen::getAllCharacters(){
-	vector<ScreenLayer*> layers = this->getAllLayers();
-	vector<Character*> chars;
-	for(int i = 0; i < layers.size(); i++){
-		vector<Character*> layerChars = layers.at(i)->getAllCharacters();
-		for(int j = 0; j < layerChars.size(); j++){
-			chars.push_back(layerChars.at(j));
-		}
-	}
-	return chars;
+Character* Screen::getPlayer() {
+	return this->player;
 }
-vector<string> Screen::getAllCharacterNames(){
-	vector<ScreenLayer*> layers = this->getAllLayers();
+void Screen::addScreenObject(ScreenObject* screenObject) {
+	this->screenObjects.push_back(screenObject);
+}
+/*
+vector<Character*> Screen::getAllCharacters() {
+	return this->characters;
+}
+*/
+/*
+vector<string> Screen::getAllCharacterNames() {
 	vector<string> names;
-	for(int i = 0; i < layers.size(); i++){
-		vector<string> layerNames = layers.at(i)->getAllCharacterNames();
-		for(int j = 0; j < layerNames.size(); j++){
-			names.push_back(layerNames.at(j));
-		}
+	for(Character* character: this->characters) {
+			names.push_back(character->getName());
 	}
 	return names;
 }
-vector<string> Screen::getAllLayerNames(){
-	vector<string> names;
-	for(int i = 0; i < this->layers.size(); i++){
-		names.push_back(this->layers.at(i).getName());
-	}
-	return names;
+*/
+vector<ScreenObject*> Screen::getScreenObjects() {
+	return this->screenObjects;
 }
-ScreenLayer* Screen::getLayer(int index){
-	return &this->layers[index];
-}
-ScreenLayer* Screen::getLastLayer(){
-	return &this->layers.back();
+string Screen::getBackgroundPath() {
+	return this->backgroundPath;
 }

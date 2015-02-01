@@ -1,11 +1,8 @@
 #include "../h/Image.h"
 
-Image::Image() {
+Image::Image(std::string path): path(path) {
 }
 
-Image::Image(const Image& orig) {
+void Image::addAnimation(Animation* animation){
+	this->animations.push_back(animation);
 }
-
-Image::~Image() {
-}
-

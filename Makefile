@@ -1,2 +1,10 @@
-all:
-	g++ -o main cpp/Animation.cpp cpp/Character.cpp cpp/Image.cpp cpp/Position.cpp cpp/Screen.cpp cpp/ScreenItem.cpp cpp/ScreenLayer.cpp cpp/ScreenObject.cpp cpp/main.cpp -O2 -std=c++11
+SOURCES = Animation.cpp Character.cpp Image.cpp Position.cpp Screen.cpp ScreenItem.cpp ScreenObject.cpp Graphics.cpp main.cpp
+OBJECTS = $(SOURCES:.cpp=.o)
+all : $(OBJECTS)
+	g++ $(OBJECTS) -Wall -o2 -o main -lSDL2 -lSDL2_image
+%.o : cpp/%.cpp
+	g++ -c $< -std=c++11
+
+.PHONY : clean
+clean :
+	rm -rf main *.o
