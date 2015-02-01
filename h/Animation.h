@@ -4,6 +4,7 @@
 #include "ScreenObject.h"
 #include "Image.h"
 #include <list>
+#include <cmath>
 #include <vector>
 
 using namespace std;
@@ -23,9 +24,13 @@ public:
 	void addImages(vector<string> paths);
 	int getLength();
 	string getActiveImage();
+	void startRunning();
+	void stopRunning();
 	void tick();
 private:
 	int length;
+	int speed;
+	bool running;
 	string name;
 	vector<string> images;
 	vector<ScreenObject*> screenObjects;

@@ -1,6 +1,7 @@
 #ifndef POSITION_H
 #define	POSITION_H
 
+#include <cmath>
 #include <iostream>
 #include <typeinfo>
 
@@ -9,8 +10,7 @@ class Position {
 	float valX, valY;
 	float magnitude;
 public:
-	Position();
-	Position(float, float);
+	Position(float x = 0, float y = 0);
 	void setX(float);
 	void setY(float);
 	void setXY(float, float);

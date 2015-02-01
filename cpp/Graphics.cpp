@@ -79,6 +79,8 @@ void Graphics::run() {
 					break;
 				case SDL_MOUSEBUTTONDOWN:
 					if(event.button.button == SDL_BUTTON_LEFT) {
+						cout << "Mousebuttonevent incoming" << endl;
+						this->screen->getPlayer()->startRunning();
 						this->screen->getPlayer()->setTarget(float(event.motion.x), float(event.motion.y));
 					}
 					break;
@@ -89,6 +91,8 @@ void Graphics::run() {
 			}
 		}
 		this->draw();
-		SDL_Delay(20);
+		this->screen->getPlayer()->tick();
+		cout << "check new Position: (" << this->screen->getPlayer()->getPosX() << " | " << this->screen->getPlayer()->getPosY() << ")" << endl;
+		SDL_Delay(10);
 	}
 }

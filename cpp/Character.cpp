@@ -1,4 +1,20 @@
 #include "../h/Character.h"
+
+Character::Character(int width, int height) : ScreenObject(width, height), target(0, 0) {
+}
+Character::Character(string name, int width, int height) : ScreenObject(name, width, height), target(0, 0) {
+}
+Character::Character(string name, int width, int height, string path) : ScreenObject(name, width, height, path), target(150, 700) {
+}
+Character::Character(string name, int width, int height, vector<string> paths) : ScreenObject(name, width, height, paths), target(0, 0) {
+}
+Character::Character(string name, int width, int height, Animation animation) : ScreenObject(name, width, height, animation), target(0, 0) {
+}
+Character::Character(string name, int width, int height, vector<Animation> animations) : ScreenObject(name, width, height, animations), target(0, 0) {
+}
+Character::Character(string name, int width, int height, vector<vector<string>> paths) : ScreenObject(name, width, height, paths), target(0, 0) {
+}
+
 void Character::setPosition(Position position) {
 	this->position = position;
 }
@@ -28,28 +44,24 @@ void Character::move(int direction) {
 	   	this->position.setY(currY - 1);
 }
 void Character::tick() {
-	int speed = 2;
-	Position distance = Position(target.getX() - position.getX(), target.getY() - position.getY());
+	int speed = 1;
+	Position distance = Position(target.getX() - (this->getWidth()/2) - position.getX(), target.getY() - this->getHeight() - position.getY());
 	Position fak( (distance.getX() > 0) ? 1 : -1 , (distance.getY() > 0) ? 1 : -1 );
-	Position newPosition = Position();
-	if(distance.getMagnitude() < 0.05)
-		; /* VOID */
+	if(distance.getMagnitude() < 0.5 )
+		this->stopRunning();
 	else if(!distance.getX())
-		newPosition.setXY(this->position.getX(), this->position.getY() + fak.getY() * speed);
+		this->position.setXY(this->position.getX(), this->position.getY() + fak.getY() * speed);
 	 else if(!distance.getY())
-		newPosition.setXY(this->position.getX() + fak.getX() * speed, this->position.getY());
+		this->position.setXY(this->position.getX() + fak.getX() * speed, this->position.getY());
 	else
-		newPosition.setXY(this->position.getX() + (float(distance.getX()) / distance.getMagnitude() * float(speed)),
+		this->position.setXY(this->position.getX() + (float(distance.getX()) / distance.getMagnitude() * float(speed)),
 				this->position.getY() + (float(distance.getY()) / distance.getMagnitude() * float(speed)));
-	this->position = newPosition;
 }
 void Character::turn(int direction) {
 	this->currentAnimation = this->directionAnimation.at(direction);
 }
 void Character::setTarget(float x, float y) {
-	cout << "calling 'getX'" << endl;
-	cout << this->position.getX();
-	this->position.setXY(x, y);
+	this->target.setXY(x, y);
 }
 Position* Character::getPosition() {
 	return &(this->position);
@@ -59,4 +71,10 @@ int Character::getDirection() {
 }
 void Character::setDirection(int direction) {
 	this->direction = direction;
+}
+void Character::startRunning() {
+	this->getActiveAnimation()->startRunning();
+}
+void Character::stopRunning() {
+	this->getActiveAnimation()->stopRunning();
 }
