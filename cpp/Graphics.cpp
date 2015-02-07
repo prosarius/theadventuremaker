@@ -91,7 +91,7 @@ void Graphics::run() {
 			}
 		}
 		this->draw();
-		this->screen->getPlayer()->tick();
+		this->screen->getPlayer()->tick(this->screen);
 		cout << "check new Position: (" << this->screen->getPlayer()->getPosX() << " | " << this->screen->getPlayer()->getPosY() << ")" << endl;
 		SDL_Delay(10);
 	}

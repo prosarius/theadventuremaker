@@ -1,13 +1,13 @@
 #include "../h/Screen.h"
 
 using namespace std;
-Screen::Screen(int width, int height) : width(width), height(height) {
+Screen::Screen(int width, int height) : width(width), height(height), stopY(350){
 }
 Screen::Screen(string name, int width, int height)
-	: name(name), width(width), height(height) {
+	: name(name), width(width), height(height), stopY(350) {
 }
 Screen::Screen(string name, int width, int height, string backgroundPath)
-   	: name(name), width(width), height(height), backgroundPath(backgroundPath) {
+   	: name(name), width(width), height(height), stopY(350), backgroundPath(backgroundPath) {
 }
 int Screen::getWidth() {
     return this->width;
@@ -21,8 +21,11 @@ void Screen::setWidth(int x) {
 void Screen::setHeight(int y) {
     this->height = y;
 }
-std::string Screen::getName() {
+string Screen::getName() {
 	return name;
+}
+int Screen::getStopY() {
+	return this->stopY;
 }
 void Screen::addPlayer(Character* character) {
 	if(find(this->screenObjects.begin(), this->screenObjects.end(), character) == this->screenObjects.end())

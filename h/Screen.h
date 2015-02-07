@@ -14,6 +14,7 @@ class Screen {
 	Character* player;
 	vector<ScreenObject*> screenObjects;
 	string name, backgroundPath;
+	int stopY;
 public:
 	Screen(int width, int height);
 	Screen(string name, int width, int height, string path);
@@ -25,6 +26,7 @@ public:
 	int getWidth();
 	int getHeight();
 	string getName();
+	int getStopY();
 	Character* getPlayer();
 	//vector<Character*> getAllCharacters();
 	//vector<string> getAllCharacterNames();

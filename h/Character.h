@@ -13,6 +13,11 @@
 using namespace std;
 class Screen;
 class Character : public ScreenObject{
+	int direction;
+	array<Animation*,4> directionAnimation;
+	Animation* currentAnimation;
+	Position target;
+	vector<Screen*> screens;
 public:
 	Character(int width, int height);
 	Character(string name, int width, int height);
@@ -30,15 +35,9 @@ public:
 	Position* getPosition();
 	int getDirection();
 	void setDirection(int direction);
-	void tick();
+	void tick(Screen* screen);
 	void startRunning();
 	void stopRunning();
-private:
-	int direction;
-	std::array<Animation*,4> directionAnimation;
-	Animation* currentAnimation;
-	Position target;
-	vector<Screen*> screens;
 };
 
 #endif	/* CHARACTER_H */

@@ -2,7 +2,7 @@ SOURCES = Animation.cpp Character.cpp Graphics.cpp Image.cpp Position.cpp Screen
 OBJECTS = $(SOURCES:.cpp=.o)
 all : $(OBJECTS)
 	g++ $(OBJECTS) -Wall -o2 -o main -lSDL2 -lSDL2_image
-%.o : cpp/%.cpp
+%.o : cpp/%.cpp h/%.h
 	g++ -c $< -std=c++11
 
 .PHONY : clean

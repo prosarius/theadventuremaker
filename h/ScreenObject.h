@@ -9,7 +9,6 @@ using namespace std;
 class Animation;
 class ScreenObject {
 	vector<Animation> animations;
-	int height, width;
 	Animation* activeAnimation;
 	void setDefaultAnimation();
 public:
@@ -38,6 +37,7 @@ public:
 	Animation* getActiveAnimation();
 protected:
 	Position position;
+	int height, width;
 	string name;
 };
 

@@ -6,7 +6,7 @@
 #include "../h/Character.h"
 
 int main(int argc, char** argv) {
-	Screen screen("Wald", 1600, 900, "screens/wald.jpg");
+	Screen screen("Wald", 1600, 900, "screens/garten.jpg");
 	Character strichmann("Strichmann", 100, 200, "characters/strichmann.png");
 	cout << strichmann.getPosX() << endl;
 	strichmann.getActiveAnimation()->addImage("characters/strichmann1.png");

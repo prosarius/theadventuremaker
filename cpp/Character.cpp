@@ -43,19 +43,36 @@ void Character::move(int direction) {
 	else if(direction | WEST)
 	   	this->position.setY(currY - 1);
 }
-void Character::tick() {
+void Character::tick(Screen* screen) {
+	if(this->target.getX() == this->position.getX() && this->target.getY() == this->position.getY())
+		return;
 	int speed = 1;
 	Position distance = Position(target.getX() - (this->getWidth()/2) - position.getX(), target.getY() - this->getHeight() - position.getY());
 	Position fak( (distance.getX() > 0) ? 1 : -1 , (distance.getY() > 0) ? 1 : -1 );
-	if(distance.getMagnitude() < 0.5 )
+	/* pretend flickering and check for horizontal stop on screen */
+	if(distance.getMagnitude() < 0.5 || (this->position.getY() - screen->getStopY() < 0.5 && fak.getY() == -1)){
 		this->stopRunning();
-	else if(!distance.getX())
+		return;
+	}
+
+	if(!distance.getX())
+		/* Just move in y direction */
 		this->position.setXY(this->position.getX(), this->position.getY() + fak.getY() * speed);
 	 else if(!distance.getY())
+		/* Just move in x direction */
 		this->position.setXY(this->position.getX() + fak.getX() * speed, this->position.getY());
 	else
+		/* move x and y */
 		this->position.setXY(this->position.getX() + (float(distance.getX()) / distance.getMagnitude() * float(speed)),
 				this->position.getY() + (float(distance.getY()) / distance.getMagnitude() * float(speed)));
+
+	/* resize
+	 * toDo: get rid of hard coded shit
+	 */
+	float faktor = (900 - this->position.getY()) / (1200- screen->getStopY());
+	cout << faktor << endl;
+	this->width = (1 - faktor) * 100;
+	this->height = (1 - faktor) * 200;
 }
 void Character::turn(int direction) {
 	this->currentAnimation = this->directionAnimation.at(direction);
@@ -77,4 +94,5 @@ void Character::startRunning() {
 }
 void Character::stopRunning() {
 	this->getActiveAnimation()->stopRunning();
+	this->target = this->position;
 }
