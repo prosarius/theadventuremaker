@@ -1,17 +1,13 @@
 #include "../h/Animation.h"
 
 using namespace std;
-Animation::Animation(ScreenObject* screenObject) : name(name), length(0), speed(60), running(false) {
-	this->addScreenObject(screenObject);
-}
-Animation::Animation(string name, ScreenObject* screenObject) : name(name), length(0), speed(60), running(false), activeImage(0) {
-	this->addScreenObject(screenObject);
-}
-Animation::Animation(string name, string image, ScreenObject* screenObject) : name(name), length(1), speed(60), running(false), activeImage(0) {
+Animation::Animation(string name, string image, int speed, ScreenObject* screenObject)
+	: name(name), length(1), speed(speed), running(false), activeImage(0) {
 	this->images.push_back(image);
 	this->addScreenObject(screenObject);
 }
-Animation::Animation(string name, vector<string> images, ScreenObject* screenObject) : name(name), speed(60), running(false), activeImage(0), images(images) {
+Animation::Animation(string name, vector<string> images, int speed, ScreenObject* screenObject)
+	: name(name), speed(speed), running(false), activeImage(0), images(images) {
 	this->length = images.size();
 	this->addScreenObject(screenObject);
 }
@@ -36,8 +32,8 @@ void Animation::tick() {
 }
 */
 void Animation::addImages(vector<string> images) {
-	for(auto path: images)
-		addImage(path);
+	for(auto texturePath: images)
+		addImage(texturePath);
 }
 int Animation::getLength() {
 	return this->length;

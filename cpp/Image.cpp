@@ -1,6 +1,6 @@
 #include "../h/Image.h"
 
-Image::Image(std::string path): path(path) {
+Image::Image(std::string texturePath): texturePath(texturePath) {
 }
 
 void Image::addAnimation(Animation* animation){

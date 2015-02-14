@@ -18,7 +18,7 @@ class Graphics {
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
-	SDL_Texture* getTextureFromPath(string path);
+	SDL_Texture* getTextureFromPath(string texturePath);
 	void draw();
 	void drawScreenObject(ScreenObject* screenObject);
 	void drawBackground();

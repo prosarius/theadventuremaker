@@ -6,12 +6,12 @@
 class Animation;
 class Image {
 public:
-	Image(std::string path);
+	Image(std::string texturePath);
 	void addAnimation(Animation* animation);
 	//void removeAnimation(const Animation* animation);
 private:
 	std::vector<Animation*> animations;
-	std::string path;
+	std::string texturePath;
 };
 
 #endif	/* IMAGE_H */

@@ -1,33 +1,15 @@
 #ifndef ANIMATION_H
 #define	ANIMATION_H
 #include <string>
-#include "ScreenObject.h"
-#include "Image.h"
 #include <list>
 #include <cmath>
 #include <vector>
 
+#include "ScreenObject.h"
+
 using namespace std;
-class Image;
 class ScreenObject;
 class Animation {
-public:
-	Animation(ScreenObject* screenObject = NULL);
-	Animation(string name, ScreenObject* screenObject = NULL);
-	Animation(string name, string image, ScreenObject* screenObject = NULL);
-	Animation(string name, vector<string> images, ScreenObject* = NULL);
-
-	void addScreenObject(ScreenObject* object);
-	vector<ScreenObject*> getScreenObjects();
-	void addImage(string path);
-	// void removeImage(string path);
-	void addImages(vector<string> paths);
-	int getLength();
-	string getActiveImage();
-	void startRunning();
-	void stopRunning();
-	void tick();
-private:
 	int length;
 	int speed;
 	bool running;
@@ -35,6 +17,20 @@ private:
 	vector<string> images;
 	vector<ScreenObject*> screenObjects;
 	int activeImage;
+public:
+	Animation(string name, string image, int speed = 60,  ScreenObject* screenObject = NULL);
+	Animation(string name, vector<string> images, int speed = 60, ScreenObject* = NULL);
+
+	void addScreenObject(ScreenObject* object);
+	vector<ScreenObject*> getScreenObjects();
+	void addImage(string texturePath);
+	// void removeImage(string texturePath);
+	void addImages(vector<string> texturePaths);
+	int getLength();
+	string getActiveImage();
+	void startRunning();
+	void stopRunning();
+	void tick();
 };
 
 #endif	/* ANIMATION_H */

@@ -1,13 +1,8 @@
 #include "../h/Screen.h"
 
 using namespace std;
-Screen::Screen(int width, int height) : width(width), height(height), stopY(350){
-}
-Screen::Screen(string name, int width, int height)
-	: name(name), width(width), height(height), stopY(350) {
-}
-Screen::Screen(string name, int width, int height, string backgroundPath)
-   	: name(name), width(width), height(height), stopY(350), backgroundPath(backgroundPath) {
+Screen::Screen(string name, int width, int height, int stopY, string texturePath)
+   	: name(name), width(width), height(height), stopY(stopY), backgroundPath(texturePath) {
 }
 int Screen::getWidth() {
     return this->width;
@@ -28,9 +23,11 @@ int Screen::getStopY() {
 	return this->stopY;
 }
 void Screen::addPlayer(Character* character) {
+	/* test if already added */
 	if(find(this->screenObjects.begin(), this->screenObjects.end(), character) == this->screenObjects.end())
 		this->screenObjects.push_back(character);
 	this->player = character;
+	character->setScreen(this);
 }
 Character* Screen::getPlayer() {
 	return this->player;
@@ -38,20 +35,6 @@ Character* Screen::getPlayer() {
 void Screen::addScreenObject(ScreenObject* screenObject) {
 	this->screenObjects.push_back(screenObject);
 }
-/*
-vector<Character*> Screen::getAllCharacters() {
-	return this->characters;
-}
-*/
-/*
-vector<string> Screen::getAllCharacterNames() {
-	vector<string> names;
-	for(Character* character: this->characters) {
-			names.push_back(character->getName());
-	}
-	return names;
-}
-*/
 vector<ScreenObject*> Screen::getScreenObjects() {
 	return this->screenObjects;
 }

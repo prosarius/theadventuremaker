@@ -10,8 +10,8 @@ Graphics::Graphics(Screen* screen) : screen(screen) {
 		return;
 	}
 	this->window = SDL_CreateWindow( "Mayas Traum",
-		   	SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1600, 900,
-			SDL_WINDOW_SHOWN );
+		   	SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screen->getWidth(),
+			screen->getHeight(), SDL_WINDOW_SHOWN );
 	if(!this->window) {
 		cerr << "Window Creation failed" << endl;
 		return;
@@ -38,10 +38,10 @@ void Graphics::drawBackground() {
 	SDL_Rect rect = {0, 0, this->screen->getWidth(), this->screen->getHeight()};
 	SDL_RenderCopy(this->renderer, this->getTextureFromPath(this->screen->getBackgroundPath()), NULL, &rect);
 }
-SDL_Texture* Graphics::getTextureFromPath(string path) {
-	if(!this->textures.count(path))
-		this->textures.insert(pair<string, SDL_Texture*>(path, IMG_LoadTexture(this->renderer, path.c_str())));
-	return this->textures.at(path);
+SDL_Texture* Graphics::getTextureFromPath(string texturePath) {
+	if(!this->textures.count(texturePath))
+		this->textures.insert(pair<string, SDL_Texture*>(texturePath, IMG_LoadTexture(this->renderer, texturePath.c_str())));
+	return this->textures.at(texturePath);
 }
 void Graphics::clear() {
 	SDL_RenderClear(this->renderer);
@@ -91,7 +91,7 @@ void Graphics::run() {
 			}
 		}
 		this->draw();
-		this->screen->getPlayer()->tick(this->screen);
+		this->screen->getPlayer()->tick();
 		cout << "check new Position: (" << this->screen->getPlayer()->getPosX() << " | " << this->screen->getPlayer()->getPosY() << ")" << endl;
 		SDL_Delay(10);
 	}
