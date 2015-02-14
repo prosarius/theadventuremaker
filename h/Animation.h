@@ -1,5 +1,6 @@
 #ifndef ANIMATION_H
 #define	ANIMATION_H
+
 #include <string>
 #include <list>
 #include <cmath>
@@ -26,8 +27,12 @@ public:
 	void addImage(string texturePath);
 	// void removeImage(string texturePath);
 	void addImages(vector<string> texturePaths);
+	void setSpeed(int speed);
+
 	int getLength();
 	string getActiveImage();
+	int getSpeed();
+
 	void startRunning();
 	void stopRunning();
 	void tick();

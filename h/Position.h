@@ -11,9 +11,9 @@ class Position {
 	float magnitude;
 public:
 	Position(float x = 0, float y = 0);
-	void setX(float);
-	void setY(float);
-	void setXY(float, float);
+	void setX(float x);
+	void setY(float y);
+	void setXY(float x, float y);
 	float getX();
 	float getY();
 	float getMagnitude();

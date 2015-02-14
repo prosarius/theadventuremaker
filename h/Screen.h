@@ -1,15 +1,20 @@
 #ifndef SCREEN_H
 #define	SCREEN_H
+
 #include <stdlib.h>
 #include <vector>
 #include <string>
 #include <iostream>
 #include <algorithm>
 
-#include "ScreenObject.h"
+#ifndef SCREENOBJECT_H
 #include "Character.h"
+#endif
+
+#include "ScreenObject.h"
 
 using namespace std;
+class Character;
 class ScreenObject;
 class Screen {
 	int width, height;
@@ -23,7 +28,7 @@ public:
 	void setWidth(int x);
 	void setHeight(int y);
 	void setTexture(string texturePath);
-	void addPlayer(Character*);
+	void addPlayer(Character* character);
 	void addScreenObject(ScreenObject* screenObject);
 
 	int getWidth();

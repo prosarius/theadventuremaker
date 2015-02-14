@@ -1,11 +1,14 @@
 #ifndef SCREENLAYER_H
 #define	SCREENLAYER_H
+
 #include <vector>
 #include <stdlib.h>
+
 #include "Character.h"
 #include "ScreenItem.h"
 #include "Image.h"
 #include "Screen.h"
+
 using namespace std;
 class ScreenLayer {
 public:

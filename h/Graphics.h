@@ -9,7 +9,9 @@
 #include <utility>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "../h/Screen.h"
+
+#include "Screen.h"
+#include "Character.h"
 
 class Graphics {
 	Screen* screen;

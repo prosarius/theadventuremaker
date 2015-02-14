@@ -1,5 +1,6 @@
 #ifndef SCREENOBJECT_H
 #define	SCREENOBJECT_H
+
 #include <vector>
 #include <string>
 
