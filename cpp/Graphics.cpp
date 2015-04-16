@@ -29,16 +29,15 @@ void Graphics::draw() {
 	this->clear();
 	this->drawBackground();
 	//this->screen->getPlayer()->tick();
-	for(auto object: this->screen->getScreenObjects()) {
+	for(auto object: this->screen->getScreenObjects())
 		this->drawScreenObject(object);
-	}
 	this->present();
 }
 void Graphics::drawBackground() {
 	SDL_Rect rect = {0, 0, this->screen->getWidth(), this->screen->getHeight()};
 	SDL_RenderCopy(this->renderer, this->getTextureFromPath(this->screen->getBackgroundPath()), NULL, &rect);
 }
-SDL_Texture* Graphics::getTextureFromPath(string texturePath) {
+SDL_Texture* Graphics::getTextureFromPath(const string &texturePath) {
 	if(!this->textures.count(texturePath))
 		this->textures.insert(pair<string, SDL_Texture*>(texturePath, IMG_LoadTexture(this->renderer, texturePath.c_str())));
 	return this->textures.at(texturePath);
@@ -48,10 +47,10 @@ void Graphics::clear() {
 }
 void Graphics::drawScreenObject(ScreenObject* screenObject) {
 	SDL_Rect rect = {
-		int(screenObject->getPosX()),
-		int(screenObject->getPosY()),
-		int(screenObject->getWidth()),
-		int(screenObject->getHeight()) };
+		int(screenObject->getPosX() - screenObject->getRenderWidth() * screenObject->getPivotX()),
+		int(screenObject->getPosY() - screenObject->getRenderHeight() * screenObject->getPivotY()),
+		int(screenObject->getRenderWidth()),
+		int(screenObject->getRenderHeight()) };
 	screenObject->getActiveAnimation()->tick();
 	SDL_RenderCopy(this->renderer, this->getTextureFromPath(screenObject->getActiveAnimation()->getActiveImage()), NULL, &rect);
 }
@@ -74,25 +73,25 @@ void Graphics::run() {
 				case SDL_KEYDOWN:
 					if(event.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
 					   	running = false;
-						cout << "escape" << endl;
+					//	cout << "escape" << endl;
 					}
 					break;
 				case SDL_MOUSEBUTTONDOWN:
 					if(event.button.button == SDL_BUTTON_LEFT) {
-						cout << "Mousebuttonevent incoming" << endl;
+					//	cout << "Mousebuttonevent incoming" << endl;
 						this->screen->getPlayer()->startRunning();
 						this->screen->getPlayer()->setTarget(float(event.motion.x), float(event.motion.y));
 					}
 					break;
 				case SDL_QUIT:
-					cout << "quit" << endl;
+					//cout << "quit" << endl;
 					running = false;
 					break;
 			}
 		}
 		this->draw();
 		this->screen->getPlayer()->tick();
-		cout << "check new Position: (" << this->screen->getPlayer()->getPosX() << " | " << this->screen->getPlayer()->getPosY() << ")" << endl;
+		//cout << "check new Position: (" << this->screen->getPlayer()->getPosX() << " | " << this->screen->getPlayer()->getPosY() << ")" << endl;
 		SDL_Delay(10);
 	}
 }

@@ -2,12 +2,12 @@
 
 using namespace std;
 /* constructors */
-Animation::Animation(string name, string image, int speed, ScreenObject* screenObject)
+Animation::Animation(const string &name, const string &image, const int &speed, ScreenObject* screenObject)
 	: name(name), length(1), speed(speed), running(false), activeImage(0) {
 	this->images.push_back(image);
 	this->addScreenObject(screenObject);
 }
-Animation::Animation(string name, vector<string> images, int speed, ScreenObject* screenObject)
+Animation::Animation(const string &name, const vector<string> &images, const int &speed, ScreenObject* screenObject)
 	: name(name), speed(speed), running(false), activeImage(0), images(images) {
 	this->length = images.size();
 	this->addScreenObject(screenObject);
@@ -18,29 +18,29 @@ void Animation::addScreenObject(ScreenObject* object) {
 	this->screenObjects.push_back(object);
 }
 
-void Animation::addImage(string image) {
+void Animation::addImage(const string &image) {
 	this->images.push_back(image);
 	this->length++;
 }
-void Animation::addImages(vector<string> images) {
+void Animation::addImages(const vector<string> &images) {
 	for(auto texturePath: images)
 		addImage(texturePath);
 }
-void Animation::setSpeed(int speed) {
+void Animation::setSpeed(const int &speed) {
 	this->speed = speed;
 }
 
 /* getters */
-int Animation::getLength() {
+int Animation::getLength() const {
 	return this->length;
 }
-vector<ScreenObject*> Animation::getScreenObjects() {
+vector<ScreenObject*> Animation::getScreenObjects() const {
 	return this->screenObjects;
 }
-string Animation::getActiveImage() {
+string Animation::getActiveImage() const {
 	return this->images.at(floor(activeImage / this->speed));
 }
-int Animation::getSpeed() {
+int Animation::getSpeed() const {
 	return this->speed;
 }
 

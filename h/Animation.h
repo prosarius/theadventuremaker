@@ -19,19 +19,19 @@ class Animation {
 	vector<ScreenObject*> screenObjects;
 	int activeImage;
 public:
-	Animation(string name, string image, int speed = 60,  ScreenObject* screenObject = NULL);
-	Animation(string name, vector<string> images, int speed = 60, ScreenObject* = NULL);
+	Animation(const string &name, const string &image, const int &speed = 60,  ScreenObject* screenObject = NULL);
+	Animation(const string &name, const vector<string> &images, const int &speed = 60, ScreenObject* screenObject = NULL);
 
 	void addScreenObject(ScreenObject* object);
-	vector<ScreenObject*> getScreenObjects();
-	void addImage(string texturePath);
+	void addImage(const string &texturePath);
 	// void removeImage(string texturePath);
-	void addImages(vector<string> texturePaths);
-	void setSpeed(int speed);
+	void addImages(const vector<string> &texturePaths);
+	void setSpeed(const int &speed);
 
-	int getLength();
-	string getActiveImage();
-	int getSpeed();
+	vector<ScreenObject*> getScreenObjects() const;
+	int getLength() const;
+	string getActiveImage() const;
+	int getSpeed() const;
 
 	void startRunning();
 	void stopRunning();

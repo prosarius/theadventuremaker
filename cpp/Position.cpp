@@ -18,15 +18,21 @@ void Position::setXY(float x, float y) {
 	this->valY = y;
 	this->calcMagnitude();
 }
-float Position::getX() {
+float Position::getX() const {
 	return this->valX;
 }
-float Position::getY() {
+float Position::getY() const {
 	return this->valY;
 }
 void Position::calcMagnitude() {
 	this->magnitude = sqrt(pow(this->valX, 2) + pow(this->valY, 2));
 }
-float Position::getMagnitude() {
+float Position::getMagnitude() const {
 	return this->magnitude;
+}
+Position Position::operator+(const Position &p) const {
+    return Position(this->valX + p.valX , this->valY + p.valY);
+}
+Position Position::operator-(const Position &p) const {
+    return Position(this->valX - p.valX , this->valY - p.valY);
 }

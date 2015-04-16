@@ -14,9 +14,11 @@ public:
 	void setX(float x);
 	void setY(float y);
 	void setXY(float x, float y);
-	float getX();
-	float getY();
-	float getMagnitude();
+	float getX() const;
+	float getY() const;
+	float getMagnitude() const;
+    Position operator+(const Position &p) const;
+    Position operator-(const Position &p) const;
 };
 
 #endif	/* POSITION_H */

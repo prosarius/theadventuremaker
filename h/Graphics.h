@@ -20,7 +20,7 @@ class Graphics {
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
-	SDL_Texture* getTextureFromPath(string texturePath);
+	SDL_Texture* getTextureFromPath(const string &texturePath);
 	void draw();
 	void drawScreenObject(ScreenObject* screenObject);
 	void drawBackground();

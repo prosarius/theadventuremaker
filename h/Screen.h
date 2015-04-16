@@ -12,32 +12,37 @@
 #endif
 
 #include "ScreenObject.h"
+#include "Position.h"
 
 using namespace std;
 class Character;
 class ScreenObject;
 class Screen {
-	int width, height;
+    Position size;
 	Character* player;
 	vector<ScreenObject*> screenObjects;
 	string name, backgroundPath;
+    float sizeFactor;
 	int stopY;
 public:
-	Screen(string name, int width, int height, int stopY, string texturePath);
+	Screen(const string &name, const int &width, const int &height, const int &stopY, const float &sizeFactor, const string &texturePath);
 
-	void setWidth(int x);
-	void setHeight(int y);
-	void setTexture(string texturePath);
+	void setWidth(const int &x);
+	void setHeight(const int &y);
+    void setStopY(const int &stopY);
+    void setSizeFactor(const float &sizeFactor);
+	void setTexture(const string &texturePath);
 	void addPlayer(Character* character);
 	void addScreenObject(ScreenObject* screenObject);
 
-	int getWidth();
-	int getHeight();
-	string getName();
-	int getStopY();
-	Character* getPlayer();
-	vector<ScreenObject*> getScreenObjects();
-	string getBackgroundPath();
+	int getWidth() const;
+	int getHeight() const;
+	string getName() const;
+    float getSizeFactor() const;
+	int getStopY() const;
+	Character* getPlayer() const;
+	vector<ScreenObject*> getScreenObjects() const;
+	string getBackgroundPath() const;
 };
 
 #endif	/* SCREEN_H */

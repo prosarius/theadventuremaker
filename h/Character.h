@@ -14,18 +14,17 @@ using namespace std;
 class Character : public ScreenObject {
 	Animation* currentAnimation;
 	Position target;
-	void resize();
 	float speed;
 public:
-	Character(string name, int width, int height, int x, int y, string texturePath, float speed = 1);
+	Character(const string &name, const int &width, const int &height, const int &x, const int &y, const string &texturePath, const float &speed = 1);
 
-	void setPosition(Position position);
-	void setPosition(float x, float y);
-	void setTarget(float x, float y);
-	void setSpeed(float speed);
+	void setPosition(const Position &osition);
+	void setPosition(const float &x, const float &y);
+	void setTarget(const float &x, const float &y);
+	void setSpeed(const float &speed);
 
 	Position* getPosition();
-	float getSpeed();
+	float getSpeed() const;
 
 	void tick();
 	void startRunning();

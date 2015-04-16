@@ -19,27 +19,34 @@ class ScreenObject {
 protected:
 	string name;
 	Position position;
-	int height, width;
+    Position pivot;
+    Position size;
+    Position renderSize;
 	Screen* screen;
 
 public:
-	ScreenObject(string name, int width, int height, int x, int y, string texturePath);
+	ScreenObject(const string &name, const int &width, const int &height, const int &x, const int &y, const string &texturePath);
 
 	void addAnimation(Animation animation);
-	void addAnimation(string texturePath, int speed = 60);
-	void addAnimation(vector<string> texturePaths, int speed = 60);
+	void addAnimation(const string &texturePath, int speed = 60);
+	void addAnimation(const vector<string> &texturePaths, int speed = 60);
 	void addAnimations(vector<Animation> animations);
 
-	void setName(string name);
+	void setName(const string &name);
 	void setScreen(Screen* screen);
+    void setPivot(const float &x, const float &y);
 
-	Animation* getActiveAnimation();
-	string getName();
-	int getPosX();
-	int getPosY();
-	int getWidth();
-	int getHeight();
-	Screen* getScreen();
+	Animation* getActiveAnimation() const;
+	string getName() const;
+	int getPosX() const;
+	int getPosY() const;
+	int getWidth() const;
+	int getHeight() const;
+    int getRenderHeight() const;
+    int getRenderWidth() const;
+    float getPivotX() const;
+    float getPivotY() const;
+	Screen* getScreen() const;
 };
 
 #endif	/* SCREENOBJECT_H */

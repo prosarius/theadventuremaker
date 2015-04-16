@@ -1,26 +1,22 @@
 #include "../h/Screen.h"
 
 using namespace std;
-Screen::Screen(string name, int width, int height, int stopY, string texturePath)
-   	: name(name), width(width), height(height), stopY(stopY), backgroundPath(texturePath) {
+Screen::Screen(const string &name, const int &width, const int &height, const int &stopY, const float &sizefactor, const string &texturePath)
+   	: name(name), size(width, height), stopY(stopY), sizeFactor(sizeFactor), backgroundPath(texturePath) {
 }
-int Screen::getWidth() {
-    return this->width;
+
+/* setters */
+void Screen::setWidth(const int &x) {
+    this->size.setX(x);
 }
-int Screen::getHeight() {
-    return this->height;
+void Screen::setHeight(const int &y) {
+    this->size.setY(y);
 }
-void Screen::setWidth(int x) {
-    this->width = x;
+void Screen::setStopY(const int &stopY) {
+    this->stopY = stopY;
 }
-void Screen::setHeight(int y) {
-    this->height = y;
-}
-string Screen::getName() {
-	return name;
-}
-int Screen::getStopY() {
-	return this->stopY;
+void Screen::setSizeFactor(const float &sizeFactor) {
+    this->sizeFactor = sizeFactor;
 }
 void Screen::addPlayer(Character* character) {
 	/* test if already added */
@@ -29,15 +25,32 @@ void Screen::addPlayer(Character* character) {
 	this->player = character;
 	character->setScreen(this);
 }
-Character* Screen::getPlayer() {
-	return this->player;
-}
 void Screen::addScreenObject(ScreenObject* screenObject) {
 	this->screenObjects.push_back(screenObject);
 }
-vector<ScreenObject*> Screen::getScreenObjects() {
+
+/* getters */
+int Screen::getWidth() const {
+    return this->size.getX();
+}
+int Screen::getHeight() const {
+    return this->size.getY();
+}
+string Screen::getName() const {
+	return name;
+}
+int Screen::getStopY() const {
+	return this->stopY;
+}
+Character* Screen::getPlayer() const {
+	return this->player;
+}
+float Screen::getSizeFactor() const {
+    return this->sizeFactor;
+}
+vector<ScreenObject*> Screen::getScreenObjects() const {
 	return this->screenObjects;
 }
-string Screen::getBackgroundPath() {
+string Screen::getBackgroundPath() const {
 	return this->backgroundPath;
 }

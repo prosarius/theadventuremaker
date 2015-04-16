@@ -1,21 +1,21 @@
 #include "../h/Character.h"
 
 /* constructors */
-Character::Character(string name, int width, int height, int x, int y, string texturePath, float speed)
-	: ScreenObject(name, width, height, x, y, texturePath), target(150, 700), speed(speed) {
+Character::Character(const string &name, const int &width, const int &height, const int &x, const int &y, const string &texturePath, const float &speed)
+	: ScreenObject(name, width, height, x, y, texturePath), target(x, y), speed(speed) {
 }
 
 /* setters */
-void Character::setPosition(Position position) {
+void Character::setPosition(const Position &position) {
 	this->position = position;
 }
-void Character::setPosition(float x, float y) {
+void Character::setPosition(const float &x, const float &y) {
 	this->position.setXY(x, y);
 }
-void Character::setTarget(float x, float y) {
+void Character::setTarget(const float &x, const float &y) {
 	this->target.setXY(x, y);
 }
-void Character::setSpeed(float speed) {
+void Character::setSpeed(const float &speed) {
 	this->speed = speed;
 }
 
@@ -23,22 +23,22 @@ void Character::setSpeed(float speed) {
 Position* Character::getPosition() {
 	return &(this->position);
 }
-float Character::getSpeed() {
+float Character::getSpeed() const {
 	return this->speed;
 }
 
+
 /* other methods */
-void Character::tick() {
+void Character::tick() { /* If Charactr is in movement this function is called to do one step  */
 	if(this->target.getX() == this->position.getX() && this->target.getY() == this->position.getY())
 		return;
-	Position distance = Position(target.getX() - (this->getWidth()/2) - position.getX(), target.getY() - this->getHeight() - position.getY());
-	Position fak( (distance.getX() > 0) ? 1 : -1 , (distance.getY() > 0) ? 1 : -1 );
+	Position distance = this->target - this->position;
+    Position fak( (distance.getX() > 0) ? 1 : -1 , (distance.getY() > 0) ? 1 : -1 );
 	/* pretend flickering and check for horizontal stop on screen */
-	if(distance.getMagnitude() < 0.5 || (this->position.getY() - this->screen->getStopY() < 0.5 && fak.getY() == -1)){
+	if(distance.getMagnitude() < 2 || (this->position.getY() - this->screen->getStopY() < 0.5 && fak.getY() == -1)){
 		this->stopRunning();
 		return;
 	}
-
 	if(!distance.getX())
 		/* Just move in y direction */
 		this->position.setXY(this->position.getX(), this->position.getY() + fak.getY() * this->speed);
@@ -49,17 +49,6 @@ void Character::tick() {
 		/* move x and y */
 		this->position.setXY(this->position.getX() + (float(distance.getX()) / distance.getMagnitude() * this->speed),
 				this->position.getY() + (float(distance.getY()) / distance.getMagnitude() * this->speed));
-
-	this->resize();
-}
-void Character::resize(){
-	/* resize
-	 * toDo: get rid of hard coded shit
-	 */
-	float faktor = (900 - this->position.getY()) / (1200 - this->screen->getStopY());
-	cout << faktor << endl;
-	this->width = (1 - faktor) * 100;
-	this->height = (1 - faktor) * 200;
 }
 void Character::startRunning() {
 	this->getActiveAnimation()->startRunning();
