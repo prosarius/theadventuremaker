@@ -23,10 +23,10 @@ void Screen::addPlayer(Character* character) {
 	if(find(this->screenObjects.begin(), this->screenObjects.end(), character) == this->screenObjects.end())
 		this->screenObjects.push_back(character);
 	this->player = character;
-	character->setScreen(this);
 }
 void Screen::addScreenObject(ScreenObject* screenObject) {
 	this->screenObjects.push_back(screenObject);
+	screenObject->setScreen(this);
 }
 
 /* getters */

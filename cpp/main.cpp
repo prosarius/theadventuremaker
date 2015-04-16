@@ -10,6 +10,7 @@ int main(int argc, char** argv) {
 	Character strichmann("Strichmann", 100, 200, 100, 500, "characters/strichmann.png", 2);
     ScreenObject baum("Baum", 647, 1507, 700, 400, "sprites/tree1.png");
     strichmann.setPivot(0.4,0.95);
+    baum.setPivot(0.4,0.95);
 	strichmann.getActiveAnimation()->addImage("characters/strichmann1.png");
 	strichmann.getActiveAnimation()->addImage("characters/strichmann2.png");
 	screen.addScreenObject(&strichmann);
