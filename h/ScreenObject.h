@@ -22,10 +22,11 @@ protected:
     Position pivot;
     Position size;
     Position renderSize;
+    Position hitbox;
 	Screen* screen;
 
 public:
-	ScreenObject(const string &name, const int &width, const int &height, const int &x, const int &y, const string &texturePath);
+	ScreenObject(const string &name, const int &width, const int &height, const int &x, const int &y, const string &texturePath, float pivotX = 0, float pivotY = 0, float hitboxWidth = 0, float hitboxHeight = 0);
 
 	void addAnimation(Animation animation);
 	void addAnimation(const string &texturePath, int speed = 60);
@@ -35,6 +36,7 @@ public:
 	void setName(const string &name);
 	void setScreen(Screen* screen);
     void setPivot(const float &x, const float &y);
+    void setHitbox(float width, float height);
 
 	Animation* getActiveAnimation() const;
 	string getName() const;
@@ -47,6 +49,9 @@ public:
     float getPivotX() const;
     float getPivotY() const;
 	Screen* getScreen() const;
+
+    static bool greaterThan(ScreenObject* a, ScreenObject* b);
+    bool collides(float x, float y) const;
 };
 
 #endif	/* SCREENOBJECT_H */

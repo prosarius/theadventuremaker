@@ -2,8 +2,8 @@
 
 using namespace std;
 /* Constructors */
-ScreenObject::ScreenObject(const string &name, const int &width, const int &height, const int &x, const int &y, const string &texturePath)
-	: name(name), size(width, height), position(x, y), pivot(0.5, 0.9), screen(NULL) {
+ScreenObject::ScreenObject(const string &name, const int &width, const int &height, const int &x, const int &y, const string &texturePath, float pivotX, float pivotY, float hitboxWidth, float hitboxHeight)
+	: name(name), size(width, height), position(x, y), pivot(pivotX, pivotY), hitbox(hitboxWidth, hitboxHeight), screen(NULL) {
 	this->animations.push_back(Animation("", texturePath, 60, this));
 	this->setDefaultAnimation();
 }
@@ -14,6 +14,9 @@ void ScreenObject::setDefaultAnimation() {
 }
 
 /* setter */
+void ScreenObject::setHitbox(float width, float height) {
+    this->hitbox.setXY(width, height);
+}
 void ScreenObject::addAnimation(Animation animation) {
 	this->animations.push_back(animation);
 	animation.addScreenObject(this);
@@ -77,4 +80,18 @@ float ScreenObject::getPivotY() const {
 }
 Screen* ScreenObject::getScreen() const {
 	return this->screen;
+}
+
+
+/* other methods */
+bool ScreenObject::greaterThan(ScreenObject* a, ScreenObject* b) {
+    return (a->getPosY() < b->getPosY());
+}
+
+bool ScreenObject::collides(float x, float y) const{
+    return (x > this->getPosX() - this->hitbox.getX() / 2
+         && x < this->getPosX() + this->hitbox.getX() / 2
+         && y > this->getPosY() - this->hitbox.getY() / 2
+         && y < this->getPosY() + this->hitbox.getY() / 2
+         );
 }

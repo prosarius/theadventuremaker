@@ -28,7 +28,7 @@ Graphics::Graphics(Screen* screen) : screen(screen) {
 void Graphics::draw() {
 	this->clear();
 	this->drawBackground();
-	//this->screen->getPlayer()->tick();
+    this->screen->sortScreenObjects();
 	for(auto object: this->screen->getScreenObjects())
 		this->drawScreenObject(object);
 	this->present();

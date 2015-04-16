@@ -1,8 +1,8 @@
 #include "../h/Character.h"
 
 /* constructors */
-Character::Character(const string &name, const int &width, const int &height, const int &x, const int &y, const string &texturePath, const float &speed)
-	: ScreenObject(name, width, height, x, y, texturePath), target(x, y), speed(speed) {
+Character::Character(const string &name, const int &width, const int &height, const int &x, const int &y, const string &texturePath, const float &speed, float pivotX, float pivotY, float hitboxWidth, float hitboxHeight)
+	: ScreenObject(name, width, height, x, y, texturePath, pivotX, pivotY, hitboxWidth, hitboxHeight), target(x, y), speed(speed) {
 }
 
 /* setters */
@@ -35,7 +35,10 @@ void Character::tick() { /* If Charactr is in movement this function is called t
 	Position distance = this->target - this->position;
     Position fak( (distance.getX() > 0) ? 1 : -1 , (distance.getY() > 0) ? 1 : -1 );
 	/* pretend flickering and check for horizontal stop on screen */
-	if(distance.getMagnitude() < 2 || (this->position.getY() - this->screen->getStopY() < 0.5 && fak.getY() == -1)){
+	if(
+            this->collidesWithSomething(this->position.getX() + (float(distance.getX()) / distance.getMagnitude() * this->speed),
+                this->position.getY() + (float(distance.getY()) / distance.getMagnitude() * this->speed))
+        || distance.getMagnitude() < 2 || (this->position.getY() - this->screen->getStopY() < 0.5 && fak.getY() == -1)){
 		this->stopRunning();
 		return;
 	}
@@ -56,4 +59,11 @@ void Character::startRunning() {
 void Character::stopRunning() {
 	this->getActiveAnimation()->stopRunning();
 	this->target = this->position;
+}
+
+bool Character::collidesWithSomething(float x, float y) const {
+    for (auto obj: this->screen->getScreenObjects())
+        if (obj->collides(x, y))
+            return true;
+    return false;
 }

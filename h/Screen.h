@@ -43,6 +43,8 @@ public:
 	Character* getPlayer() const;
 	vector<ScreenObject*> getScreenObjects() const;
 	string getBackgroundPath() const;
+
+    void sortScreenObjects();
 };
 
 #endif	/* SCREEN_H */

@@ -54,3 +54,9 @@ vector<ScreenObject*> Screen::getScreenObjects() const {
 string Screen::getBackgroundPath() const {
 	return this->backgroundPath;
 }
+
+/* other methods */
+
+void Screen::sortScreenObjects() {
+    sort(this->screenObjects.begin(), this->screenObjects.end(), ScreenObject::greaterThan);
+}

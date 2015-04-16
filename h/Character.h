@@ -16,7 +16,7 @@ class Character : public ScreenObject {
 	Position target;
 	float speed;
 public:
-	Character(const string &name, const int &width, const int &height, const int &x, const int &y, const string &texturePath, const float &speed = 1);
+	Character(const string &name, const int &width, const int &height, const int &x, const int &y, const string &texturePath, const float &speed = 1, float pivotX = 0, float pivotY = 0, float hitboxWidth = 0, float hitboxHeight = 0);
 
 	void setPosition(const Position &osition);
 	void setPosition(const float &x, const float &y);
@@ -29,6 +29,7 @@ public:
 	void tick();
 	void startRunning();
 	void stopRunning();
+    bool collidesWithSomething(float x, float y) const;
 };
 
 #endif	/* CHARACTER_H */
