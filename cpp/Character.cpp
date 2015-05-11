@@ -13,7 +13,7 @@ void Character::setPosition(const float &x, const float &y) {
 	this->position.setXY(x, y);
 }
 void Character::setTarget(const float &x, const float &y) {
-	this->target.setXY(x, y);
+    this->target = this->screen->getNearestPosition(x, y);
 }
 void Character::setSpeed(const float &speed) {
 	this->speed = speed;
@@ -36,8 +36,8 @@ void Character::tick() { /* If Charactr is in movement this function is called t
     Position fak( (distance.getX() > 0) ? 1 : -1 , (distance.getY() > 0) ? 1 : -1 );
 	/* pretend flickering and check for horizontal stop on screen */
 	if(
-            this->collidesWithSomething(this->position.getX() + (float(distance.getX()) / distance.getMagnitude() * this->speed),
-                this->position.getY() + (float(distance.getY()) / distance.getMagnitude() * this->speed))
+        !this->screen->isWalkable(this->position.getX() + (float(distance.getX()) / distance.getMagnitude() * this->speed),
+                                  this->position.getY() + (float(distance.getY()) / distance.getMagnitude() * this->speed))
         || distance.getMagnitude() < 2 || (this->position.getY() - this->screen->getStopY() < 0.5 && fak.getY() == -1)){
 		this->stopRunning();
 		return;
@@ -59,11 +59,4 @@ void Character::startRunning() {
 void Character::stopRunning() {
 	this->getActiveAnimation()->stopRunning();
 	this->target = this->position;
-}
-
-bool Character::collidesWithSomething(float x, float y) const {
-    for (auto obj: this->screen->getScreenObjects())
-        if (obj->collides(x, y))
-            return true;
-    return false;
 }

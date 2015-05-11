@@ -49,6 +49,8 @@ public:
     float getPivotX() const;
     float getPivotY() const;
 	Screen* getScreen() const;
+    float getHitboxHeight() const;
+    float getHitboxWidth() const;
 
     static bool greaterThan(ScreenObject* a, ScreenObject* b);
     bool collides(float x, float y) const;

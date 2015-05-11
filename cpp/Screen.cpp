@@ -60,3 +60,39 @@ string Screen::getBackgroundPath() const {
 void Screen::sortScreenObjects() {
     sort(this->screenObjects.begin(), this->screenObjects.end(), ScreenObject::greaterThan);
 }
+
+bool Screen::isWalkable(float x, float y) const {
+    if(this->collidesWith(x, y))
+        return false;
+    return true;
+}
+
+Position Screen::getNearestPosition(float x, float y) const {
+    ScreenObject* obj = this->collidesWith(x, y);
+    if(!obj)
+        return Position(x, y);
+
+    Position target(x, y);
+    Position retPos = target.getNearestPosition(0, obj->getPosX() - (obj->getHitboxWidth() / 2), true);
+
+    Position temp = target.getNearestPosition(0, obj->getPosX() + (obj->getHitboxWidth() / 2), true);
+    if((target - temp) < (target - retPos))
+        retPos = temp;
+
+    temp = target.getNearestPosition(0, obj->getPosY() - (obj->getHitboxHeight() / 2));
+    if((target - temp) < (target - retPos))
+        retPos = temp;
+
+    temp = target.getNearestPosition(0, obj->getPosY() + (obj->getHitboxHeight() / 2));
+    if((target - temp) < (target - retPos))
+        retPos = temp;
+
+    return retPos;
+}
+
+ScreenObject* Screen::collidesWith(float x, float y) const {
+    for(auto obj: this->screenObjects)
+        if(obj->collides(x, y))
+            return obj;
+    return NULL;
+}

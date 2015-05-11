@@ -24,6 +24,8 @@ class Screen {
 	string name, backgroundPath;
     float sizeFactor;
 	int stopY;
+
+    ScreenObject* collidesWith(float x, float y) const;
 public:
 	Screen(const string &name, const int &width, const int &height, const int &stopY, const float &sizeFactor, const string &texturePath);
 
@@ -45,6 +47,8 @@ public:
 	string getBackgroundPath() const;
 
     void sortScreenObjects();
+    bool isWalkable(float x, float y) const;
+    Position getNearestPosition(float x, float y) const;
 };
 
 #endif	/* SCREEN_H */

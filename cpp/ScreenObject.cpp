@@ -82,6 +82,13 @@ Screen* ScreenObject::getScreen() const {
 	return this->screen;
 }
 
+float ScreenObject::getHitboxHeight() const {
+    return this->hitbox.getY();
+}
+
+float ScreenObject::getHitboxWidth() const {
+    return this->hitbox.getX();
+}
 
 /* other methods */
 bool ScreenObject::greaterThan(ScreenObject* a, ScreenObject* b) {
