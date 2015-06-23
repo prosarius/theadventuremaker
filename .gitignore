@@ -4,4 +4,5 @@ nbproject/
 /dist/
 .dep.inc
 *.o
+*.d
 main

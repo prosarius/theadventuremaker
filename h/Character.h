@@ -3,27 +3,30 @@
 
 #include <array>
 #include <vector>
+#include <list>
+#include <queue>
 #include <stdlib.h>
 #include <iostream>
 
 #include "ScreenObject.h"
 #include "Animation.h"
-#include "Position.h"
+#include "Point.h"
 
 using namespace std;
 class Character : public ScreenObject {
 	Animation* currentAnimation;
-	Position target;
+	Point target;
+    list<Point> path;
 	float speed;
 public:
-	Character(const string &name, const int &width, const int &height, const int &x, const int &y, const string &texturePath, const float &speed = 1, float pivotX = 0, float pivotY = 0, float hitboxWidth = 0, float hitboxHeight = 0);
+	Character(const string &name, const int &width, const int &height, const int &x, const int &y, const string &texturePath, float speed = 1, float pivotX = 0, float pivotY = 0, float hitboxWidth = 0, float hitboxHeight = 0);
 
-	void setPosition(const Position &osition);
-	void setPosition(const float &x, const float &y);
+	void setPoint(const Point &osition);
+	void setPoint(const float &x, const float &y);
 	void setTarget(const float &x, const float &y);
-	void setSpeed(const float &speed);
+	void setSpeed(float speed);
 
-	Position* getPosition();
+	Point* getPoint();
 	float getSpeed() const;
 
 	void tick();

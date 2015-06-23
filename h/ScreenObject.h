@@ -2,9 +2,10 @@
 #define	SCREENOBJECT_H
 
 #include <vector>
+#include <set>
 #include <string>
 
-#include "Position.h"
+#include "Point.h"
 #include "Animation.h"
 #include "Screen.h"
 
@@ -18,15 +19,15 @@ class ScreenObject {
 
 protected:
 	string name;
-	Position position;
-    Position pivot;
-    Position size;
-    Position renderSize;
-    Position hitbox;
+    Point size;
+	Point position;
+    Point pivot;
+    Point hitbox;
+    Point renderSize;
 	Screen* screen;
 
 public:
-	ScreenObject(const string &name, const int &width, const int &height, const int &x, const int &y, const string &texturePath, float pivotX = 0, float pivotY = 0, float hitboxWidth = 0, float hitboxHeight = 0);
+	ScreenObject(const string &name, const int width, const int height, const int x, const int y, const string &texturePath, float pivotX = 0, float pivotY = 0, float hitboxWidth = 0, float hitboxHeight = 0);
 
 	void addAnimation(Animation animation);
 	void addAnimation(const string &texturePath, int speed = 60);
@@ -51,6 +52,7 @@ public:
 	Screen* getScreen() const;
     float getHitboxHeight() const;
     float getHitboxWidth() const;
+    set<Point> getHitboxPoints() const;
 
     static bool greaterThan(ScreenObject* a, ScreenObject* b);
     bool collides(float x, float y) const;

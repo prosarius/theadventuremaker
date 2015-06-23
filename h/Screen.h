@@ -3,31 +3,39 @@
 
 #include <stdlib.h>
 #include <vector>
+#include <queue>
+#include <list>
+#include <set>
 #include <string>
 #include <iostream>
 #include <algorithm>
 
+#include "Graph.h"
+
 #ifndef SCREENOBJECT_H
 #include "Character.h"
-#endif
+#endif /* SCREENOBJECT_H */
 
 #include "ScreenObject.h"
-#include "Position.h"
+#include "Point.h"
 
 using namespace std;
 class Character;
 class ScreenObject;
 class Screen {
-    Position size;
+	string name;
+    Point size;
+	int stopY;
+    float sizeFactor;
+    string backgroundPath;
 	Character* player;
 	vector<ScreenObject*> screenObjects;
-	string name, backgroundPath;
-    float sizeFactor;
-	int stopY;
 
     ScreenObject* collidesWith(float x, float y) const;
+    ScreenObject* collidesWith(Point from, Point to) const;
+    Graph buildGraph(Point from, Point to, set<ScreenObject*> *collidingObjects) const;
 public:
-	Screen(const string &name, const int &width, const int &height, const int &stopY, const float &sizeFactor, const string &texturePath);
+	Screen(const string &name, const int width, const int height, const int stopY, const float sizeFactor, const string &texturePath);
 
 	void setWidth(const int &x);
 	void setHeight(const int &y);
@@ -48,7 +56,8 @@ public:
 
     void sortScreenObjects();
     bool isWalkable(float x, float y) const;
-    Position getNearestPosition(float x, float y) const;
+    Point getNearestPoint(float x, float y) const;
+    list<Point> getShortestWay(Point from, Point to) const;
 };
 
 #endif	/* SCREEN_H */

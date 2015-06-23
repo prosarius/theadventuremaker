@@ -1,14 +1,25 @@
-SOURCES = Animation.cpp Character.cpp Graphics.cpp Position.cpp Screen.cpp ScreenItem.cpp ScreenObject.cpp main.cpp
-OBJECTS = $(SOURCES:.cpp=.o)
-mac : $(OBJECTS)
-	g++ $(OBJECTS) -Wall -o2 -o main -I/Library/Frameworks/SDL2.framework/Headers -framework SDL2 -framework SDL2_image
-all : $(OBJECTS)
-	g++ $(OBJECTS) -Wall -o2 -o main -lSDL2 -lSDL2_image
-main.o: cpp/main.cpp
-	g++ -c cpp/main.cpp -g -std=c++11
-%.o : cpp/%.cpp h/%.h
-	g++ -c $< -g -std=c++11
+TARGET =main
+SOURCES =Animation.cc Character.cc Graphics.cc Point.cc Screen.cc ScreenItem.cc ScreenObject.cc Edge.cc Graph.cc main.cc
+OBJECTS =$(SOURCES:.cc=.o)
+DEPS =$(SOURCES:.cc=.d)
+CFLAGS =-Wall -Wextra -Werror -Wmissing-declarations -O3 -std=c++11
+LDFLAGS=-lSDL2 -lSDL2_image
+LDFLAGS_MAC=-I/Library/Frameworks/SDL2.framework/Headers -framework SDL2 -framework SDL2_image
+
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	g++ $(LDFLAGS) -o $@ $^
+
+%.o: cc/%.cc Makefile
+	g++ -MMD -c $(CFLAGS) -o $@ $<
 
 .PHONY : clean
-clean :
-	rm -rf main *.o
+clean:
+	rm -f $(TARGET) $(OBJECTS) $(DEPS)
+
+-include $(DEPS)
+
+
+
+

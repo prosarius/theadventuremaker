@@ -2,7 +2,7 @@
 
 using namespace std;
 /* Constructors */
-ScreenObject::ScreenObject(const string &name, const int &width, const int &height, const int &x, const int &y, const string &texturePath, float pivotX, float pivotY, float hitboxWidth, float hitboxHeight)
+ScreenObject::ScreenObject(const string &name, const int width, const int height, const int x, const int y, const string &texturePath, float pivotX, float pivotY, float hitboxWidth, float hitboxHeight)
 	: name(name), size(width, height), position(x, y), pivot(pivotX, pivotY), hitbox(hitboxWidth, hitboxHeight), screen(NULL) {
 	this->animations.push_back(Animation("", texturePath, 60, this));
 	this->setDefaultAnimation();
@@ -88,6 +88,15 @@ float ScreenObject::getHitboxHeight() const {
 
 float ScreenObject::getHitboxWidth() const {
     return this->hitbox.getX();
+}
+
+set<Point> ScreenObject::getHitboxPoints() const {
+    set<Point> points;
+    points.insert(Point(this->pivot.getX() + this->hitbox.getX() / 2));
+    points.insert(Point(this->pivot.getX() - this->hitbox.getX() / 2));
+    points.insert(Point(this->pivot.getY() + this->hitbox.getY() / 2));
+    points.insert(Point(this->pivot.getY() - this->hitbox.getY() / 2));
+    return points;
 }
 
 /* other methods */

@@ -5,10 +5,11 @@
 #include "../h/Graphics.h"
 #include "../h/Character.h"
 
-int main(int argc, char** argv) {
+int main(void) {
 	Screen screen("Wald", 1280, 800, 300, 0.5, "screens/garden.png");
 
 	Character strichmann("Strichmann", 100, 200, 100, 500, "characters/strichmann.png", 2, 0.4, 0.95);
+    strichmann.setSpeed(2);
 	strichmann.getActiveAnimation()->addImage("characters/strichmann1.png");
 	strichmann.getActiveAnimation()->addImage("characters/strichmann2.png");
 

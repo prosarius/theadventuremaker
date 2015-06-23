@@ -11,13 +11,13 @@
 using namespace std;
 class ScreenObject;
 class Animation {
+	string name;
 	int length;
 	int speed;
 	bool running;
-	string name;
+	int activeImage;
 	vector<string> images;
 	vector<ScreenObject*> screenObjects;
-	int activeImage;
 public:
 	Animation(const string &name, const string &image, const int &speed = 60,  ScreenObject* screenObject = NULL);
 	Animation(const string &name, const vector<string> &images, const int &speed = 60, ScreenObject* screenObject = NULL);
