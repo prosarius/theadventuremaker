@@ -23,6 +23,7 @@ public:
 
     /* getters */
     set<Edge*> getEdges(const Point* p) const;
+    set<Point> getNodes() const;
 
     /* other methods */
     list<Point> getShortestPath(Point source, Point sink) const;

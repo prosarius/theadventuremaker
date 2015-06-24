@@ -4,6 +4,8 @@
 #include "Point.h"
 
 #include <math.h>
+#include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -23,6 +25,7 @@ public:
 
     /* operators */
     bool operator<(const Edge &edge) const;
+    friend ostream& operator<<(ostream &output, Edge &e);
 
     /* getters */
     Point getBegin();

@@ -5,6 +5,8 @@
 #include <iostream>
 #include <typeinfo>
 
+using namespace std;
+
 class Point {
 	void calcMagnitude();
 	float valX, valY;
@@ -27,6 +29,7 @@ public:
     bool operator>(const Point &p) const;
     bool operator==(const Point &p) const;
     bool operator!=(const Point &p) const;
+    friend ostream& operator<<(ostream &output, Point &p);
 
     Point getNearestPoint(float m, float n, bool asympt = false) const;
     void moveTo(const Point &to, float v);

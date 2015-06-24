@@ -57,6 +57,11 @@ bool Point::operator!=(const Point &p) const {
     return (this->valX != p.valX || this->valY != p.valY);
 }
 
+ostream& operator<<(ostream &output, Point &p) {
+    output << "(" << p.getX() << "|" << p.getY() << ")";
+    return output;
+}
+
 /* other methods */
 
 void Point::calcMagnitude() {

@@ -29,6 +29,11 @@ bool Edge::operator<(const Edge &edge) const {
     return edge.magnitude < this->magnitude;
 }
 
+ostream& operator<<(ostream &output, Edge &e) {
+    output << e.getBegin() << "---" << e.getEnd();
+    return output;
+}
+
 
 /* other methods */
 void Edge::calcMagnitude() {

@@ -37,6 +37,10 @@ set<Edge*> Graph::getEdges(const Point* p) const {
     return ret;
 }
 
+set<Point> Graph::getNodes() const {
+    return this->nodes;
+}
+
 /* other methods */
 list<Point> Graph::getShortestPath(Point source, Point sink) const {
     cout << "entering Dijkstra" << endl;
@@ -46,11 +50,16 @@ list<Point> Graph::getShortestPath(Point source, Point sink) const {
     map<const Point*, const Point*> predecessor;
     map<const Point*, signed int> minLength;
     cout << "init minLength with -1" << endl;
-    for(auto n: this->nodes){
+    for (auto n: this->nodes) {
         const Point* p = &(*(this->nodes.find(n)));
         minLength[p] = -1;
         cout << "(" << p->getX() << "|" << p->getY() << ") : " << &n << " : " << p << " : " << minLength[p] << endl;
     }
+    cout << "Edges:" << endl;
+    for (auto e: this->edges) {
+        cout << "(" << e.getBegin().getX() << "|" << e.getBegin().getY() << ")" << "\t(" << e.getEnd().getX() << "|" << e.getEnd().getY() << ")" << endl;
+    }
+
     cout << "minLength[source] = 0" << endl;
     minLength[sourceP] = 0;
     set<const Point*> q;
@@ -87,11 +96,16 @@ list<Point> Graph::getShortestPath(Point source, Point sink) const {
             }
         }
     }
+    cout << "leaving while (!q.empty())" << endl;
 
-    ret.push_front(sink);
+    ret.push_front(*sinkP);
     const Point* toPush = sinkP;
-    while(toPush != sourceP) {
+    cout << "entering while (toPush != sourceP)" << endl;
+    while (toPush != sourceP) {
+        cout << "while..." << endl;
+        cout << "(" << toPush->getX() << "|" << toPush->getY() << ")";
         toPush = predecessor[toPush];
+        cout << "\t(" << toPush->getX() << "|" << toPush->getY() << ")" << endl;
         ret.push_front(*toPush);
     }
     cout << "leaving Dijkstra" << endl;
