@@ -26,6 +26,7 @@ public:
     /* operators */
     bool operator<(const Edge &edge) const;
     friend ostream& operator<<(ostream &output, Edge &e);
+    bool operator==(const Edge &e) const;
 
     /* getters */
     Point getBegin();

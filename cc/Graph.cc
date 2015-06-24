@@ -27,12 +27,12 @@ void Graph::addEdges(set<Edge> edges) {
 }
 
 /* getters */
-set<Edge*> Graph::getEdges(const Point* p) const {
-    set<Edge*> ret;
+set<Edge> Graph::getEdges(const Point p) const {
+    set<Edge> ret;
     for(auto e: this->edges) {
-        if(e.getBegin() != *p && e.getEnd() != *p)
+        if(e.getBegin() != p && e.getEnd() != p)
             continue;
-        ret.insert(&e);
+        ret.insert(e);
     }
     return ret;
 }
@@ -44,69 +44,89 @@ set<Point> Graph::getNodes() const {
 /* other methods */
 list<Point> Graph::getShortestPath(Point source, Point sink) const {
     cout << "entering Dijkstra" << endl;
-    const Point* sinkP = &(*(this->nodes.find(sink)));
-    const Point* sourceP = &(*(this->nodes.find(source)));
+
+    /* initialize */
     list<Point> ret;
-    map<const Point*, const Point*> predecessor;
-    map<const Point*, signed int> minLength;
+    map<Point, Point> predecessor;
+    map<Point, signed int> minLength;
+    set<Point> q;
+
     cout << "init minLength with -1" << endl;
+    /* set length to infinite */
     for (auto n: this->nodes) {
-        const Point* p = &(*(this->nodes.find(n)));
+        Point p = *(this->nodes.find(n));
         minLength[p] = -1;
-        cout << "(" << p->getX() << "|" << p->getY() << ") : " << &n << " : " << p << " : " << minLength[p] << endl;
-    }
-    cout << "Edges:" << endl;
-    for (auto e: this->edges) {
-        cout << "(" << e.getBegin().getX() << "|" << e.getBegin().getY() << ")" << "\t(" << e.getEnd().getX() << "|" << e.getEnd().getY() << ")" << endl;
+        cout << p << " : " << minLength[p] << endl;
     }
 
+    /* just debugging */
+    cout << "Edges:" << endl;
+    for (auto e: this->edges)
+        cout << e << endl;
+
     cout << "minLength[source] = 0" << endl;
-    minLength[sourceP] = 0;
-    set<const Point*> q;
-    q.insert(sourceP);
+    /* source length is zero */
+    minLength[source] = 0;
+
+    /* source is in queue */
+    q.insert(source);
+
+
+
     cout << "enterng while (!q.empty())" << endl;
     while (!q.empty()) {
         cout << "while..." << endl;
-        const Point *p = NULL;
+        /* find nearest node in queue */
+        Point p;
+        bool pIsSet = false;
         for(auto point: q)
-            if(!p || minLength[point] < minLength[p])
+            if(!pIsSet or minLength[point] < minLength[p]) {
                 p = point;
+                pIsSet = true;
+            }
+
+        /* erase it from queue */
         for(auto it: q)
-            if(&(*it) == p)
+            if(it == p)
                 q.erase(it);
+
         cout << "pop. q.size() is now " << q.size() << endl;
-        cout << "Point is (" << p->getX() << "|" << p->getY() << ")" << ")" << endl;
+        cout << "Point is " << p << endl;
         cout << "entering for(auto e: this->getEdges(p)). edges found: " << this->getEdges(p).size() << endl;
+        /* analize edges */
         for(auto e: this->getEdges(p)) {
-            const Point* to = NULL;
-            if(e->getBegin() == *p)
-                to = &(*(this->nodes.find(e->getEnd())));
+            Point to;
+            /* find corresponding node */
+            if(e.getBegin() == p)
+                to = *(this->nodes.find(e.getEnd()));
             else
-                to = &(*(this->nodes.find(e->getBegin())));
-            cout << "found corresponding node: (" << to->getX() << "|" << to->getY() << ") minLength[to]: " << minLength[to] << " : " << to << endl;
+                to = *(this->nodes.find(e.getBegin()));
+            cout << "found corresponding node: " << to << " minLength[to]: " << minLength[to] << " : " << to << endl;
+            /* if not visited yet, insert into queue and set predecessor*/
             if(minLength[to] == -1) {
                 cout << "not visited yet. insert into q" << endl;
                 q.insert(to);
-                minLength[to] = e->getMagnitude();
+                minLength[to] = e.getMagnitude();
                 predecessor[to] = p;
             }
-            else if(minLength[to] > minLength[p] + e->getMagnitude()) {
+            /* if length is lower, update length and predecessor */
+            else if(minLength[to] > minLength[p] + e.getMagnitude()) {
                 cout << "already visited" << endl;
-                minLength[to] = minLength[p] + e->getMagnitude();
+                minLength[to] = minLength[p] + e.getMagnitude();
             }
         }
     }
     cout << "leaving while (!q.empty())" << endl;
 
-    ret.push_front(*sinkP);
-    const Point* toPush = sinkP;
+    /* make list from predecessors */
+    ret.push_front(sink);
+    Point toPush = sink;
     cout << "entering while (toPush != sourceP)" << endl;
-    while (toPush != sourceP) {
-        cout << "while..." << endl;
-        cout << "(" << toPush->getX() << "|" << toPush->getY() << ")";
+    while (toPush != source) {
+        cout << "while..." << endl << toPush << " --> ";
         toPush = predecessor[toPush];
-        cout << "\t(" << toPush->getX() << "|" << toPush->getY() << ")" << endl;
-        ret.push_front(*toPush);
+        cout << toPush << endl;
+        ret.push_front(toPush);
     }
     cout << "leaving Dijkstra" << endl;
     return ret;

@@ -92,10 +92,10 @@ float ScreenObject::getHitboxWidth() const {
 
 set<Point> ScreenObject::getHitboxPoints() const {
     set<Point> points;
-    points.insert(Point(this->pivot.getX() + this->hitbox.getX() / 2));
-    points.insert(Point(this->pivot.getX() - this->hitbox.getX() / 2));
-    points.insert(Point(this->pivot.getY() + this->hitbox.getY() / 2));
-    points.insert(Point(this->pivot.getY() - this->hitbox.getY() / 2));
+    points.insert(Point(this->pivot.getX() + this->hitbox.getX() / 2, this->pivot.getY() + this->hitbox.getY() / 2));
+    points.insert(Point(this->pivot.getX() + this->hitbox.getX() / 2, this->pivot.getY() - this->hitbox.getY() / 2));
+    points.insert(Point(this->pivot.getX() - this->hitbox.getX() / 2, this->pivot.getY() + this->hitbox.getY() / 2));
+    points.insert(Point(this->pivot.getX() - this->hitbox.getX() / 2, this->pivot.getY() - this->hitbox.getY() / 2));
     return points;
 }
 

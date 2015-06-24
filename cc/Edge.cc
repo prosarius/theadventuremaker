@@ -1,5 +1,6 @@
 #include "../h/Edge.h"
 
+using namespace std;
 /* constructors */
 Edge::Edge(Point begin, Point end) : begin(begin), end(end) {
     this->calcMagnitude();
@@ -30,8 +31,14 @@ bool Edge::operator<(const Edge &edge) const {
 }
 
 ostream& operator<<(ostream &output, Edge &e) {
-    output << e.getBegin() << "---" << e.getEnd();
+    Point b = e.getBegin();
+    Point end = e.getEnd();
+    output << b << "---" << end;
     return output;
+}
+
+bool Edge::operator==(const Edge &e) const {
+    return (e.begin == this->begin and e.end == this->end) or (e.begin == this->end and e.end == this->begin);
 }
 
 

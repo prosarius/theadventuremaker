@@ -22,7 +22,7 @@ public:
     void addEdges(set<Edge> edges);
 
     /* getters */
-    set<Edge*> getEdges(const Point* p) const;
+    set<Edge> getEdges(const Point p) const;
     set<Point> getNodes() const;
 
     /* other methods */
