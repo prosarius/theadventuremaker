@@ -31,6 +31,8 @@ void Graphics::draw() {
     this->screen->sortScreenObjects();
 	for(auto object: this->screen->getScreenObjects())
 		this->drawScreenObject(object);
+    for(auto e: this->screen->graph.getEdges())
+        SDL_RenderDrawLine(this->renderer, e.getBegin().getX(), e.getBegin().getY(), e.getEnd().getX(), e.getEnd().getY());
 	this->present();
 }
 void Graphics::drawBackground() {

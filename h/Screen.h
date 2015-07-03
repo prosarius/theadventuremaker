@@ -33,8 +33,10 @@ class Screen {
 
     ScreenObject* collidesWith(float x, float y) const;
     ScreenObject* collidesWith(Point from, Point to) const;
-    Graph buildGraph(Point from, Point to, set<ScreenObject*> *collidingObjects) const;
+    Graph buildGraph(Point from, Point to, set<ScreenObject*> *collidingObjects);
 public:
+    Graph graph;
+
 	Screen(const string &name, const int width, const int height, const int stopY, const float sizeFactor, const string &texturePath);
 
 	void setWidth(const int &x);
@@ -57,7 +59,7 @@ public:
     void sortScreenObjects();
     bool isWalkable(float x, float y) const;
     Point getNearestPoint(float x, float y) const;
-    list<Point> getShortestWay(Point from, Point to) const;
+    list<Point> getShortestWay(Point from, Point to);
 };
 
 #endif	/* SCREEN_H */

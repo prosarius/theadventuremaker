@@ -10,6 +10,7 @@ using namespace std;
 class Graph {
     set<Point> nodes;
     set<Edge> edges;
+
 public:
     /* operators */
     void operator+=(const Graph &g);
@@ -22,11 +23,13 @@ public:
     void addEdges(set<Edge> edges);
 
     /* getters */
+    set<Edge> getEdges() const;
     set<Edge> getEdges(const Point p) const;
     set<Point> getNodes() const;
 
     /* other methods */
     list<Point> getShortestPath(Point source, Point sink) const;
+    void clear();
 
 };
 

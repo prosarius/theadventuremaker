@@ -27,6 +27,10 @@ void Graph::addEdges(set<Edge> edges) {
 }
 
 /* getters */
+set<Edge> Graph::getEdges() const {
+    return this->edges;
+}
+
 set<Edge> Graph::getEdges(const Point p) const {
     set<Edge> ret;
     for(auto e: this->edges) {
@@ -130,4 +134,9 @@ list<Point> Graph::getShortestPath(Point source, Point sink) const {
     }
     cout << "leaving Dijkstra" << endl;
     return ret;
+}
+
+void Graph::clear() {
+    this->edges.clear();
+    this->nodes.clear();
 }

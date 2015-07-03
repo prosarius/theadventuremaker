@@ -106,14 +106,14 @@ ScreenObject* Screen::collidesWith(Point from, Point to) const {
     return collidingObject;
 }
 
-Graph Screen::buildGraph(Point from, Point to, set<ScreenObject*> *collidingObjects = NULL) const {
+Graph Screen::buildGraph(Point from, Point to, set<ScreenObject*> *collidingObjects = NULL) {
     cout << "buildGraph is called" << endl;
     if(!collidingObjects) {
         cout << "\tfor the first time" << endl;
         set<ScreenObject*> objSet;
         collidingObjects = &objSet;
     }
-    Graph graph;
+    this->graph.clear();
     graph.addNode(from);
     graph.addNode(to);
     ScreenObject* collidingObject = this->collidesWith(from, to);
@@ -171,7 +171,7 @@ Graph Screen::buildGraph(Point from, Point to, set<ScreenObject*> *collidingObje
     return graph;
 }
 
-list<Point> Screen::getShortestWay(Point from, Point to) const {
+list<Point> Screen::getShortestWay(Point from, Point to) {
     Graph graph = this->buildGraph(from, to);
     list<Point> path = graph.getShortestPath(from, to);
     return path;
