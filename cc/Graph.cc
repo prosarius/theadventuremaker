@@ -82,7 +82,6 @@ list<Point> Graph::getShortestPath(Point source, Point sink) const {
     for (auto e: this->edges)
         cout << e << endl;
 
-    cout << "minLength[source] = 0" << endl;
     /* source length is zero */
     minLength[source] = 0;
 
@@ -91,66 +90,56 @@ list<Point> Graph::getShortestPath(Point source, Point sink) const {
 
 
 
-    cout << "enterng while (!q.empty())" << endl;
     while (!q.empty()) {
-        cout << "while..." << endl;
         /* find nearest node in queue */
         Point p;
         bool pIsSet = false;
-        for(auto point: q)
+        for(auto point: q) {
+            cout << minLength[point] << " < " << minLength[p] << " ? ";
             if(!pIsSet or minLength[point] < minLength[p]) {
+                cout << "True" << endl;
                 p = point;
                 pIsSet = true;
+            } else {
+                cout << "False" << endl;
             }
-
+        }
         /* erase it from queue */
         for(auto it: q)
             if(it == p)
                 q.erase(it);
 
-        cout << "pop. q.size() is now " << q.size() << endl;
         cout << "Point is " << p << endl;
-        cout << "entering for(auto e: this->getEdges(p)). edges found: " << this->getEdges(p).size() << endl;
         /* analize edges */
         for(auto e: this->getEdges(p)) {
             Point to;
             /* find corresponding node */
             if (e.getBegin() == p)
-                for(auto n: this->nodes)
-                    if(n == e.getEnd()) {
-                        to = n;
-                        break;
-                    }
+                to = e.getEnd();
             else
-                for(auto n: this->nodes)
-                    if(n == e.getBegin()) {
-                        to = n;
-                        break;
-                    }
+                to = e.getBegin();
 
-            cout << "found corresponding node: " << to << " minLength[to]: " << minLength[to] << " : " << to << endl;
+            cout << "found corresponding node: " << to << endl << "\tshortest path is: " << minLength[to] << endl << "\tshorter path could be: " << minLength[p] + e.getMagnitude() << endl;
+
             /* if not visited yet, push_back into queue and set predecessor*/
             if(minLength[to] == -1) {
                 cout << "not visited yet. push_back into q" << endl;
                 q.insert(to);
-                minLength[to] = e.getMagnitude();
+                minLength[to] = minLength[p] + e.getMagnitude();
                 predecessor[to] = p;
             }
             /* if length is lower, update length and predecessor */
-            else if(minLength[to] > minLength[p] + e.getMagnitude()) {
-                cout << "already visited" << endl;
+            else if(minLength[to] > (minLength[p] + e.getMagnitude())) {
                 minLength[to] = minLength[p] + e.getMagnitude();
+                cout << "shorter Path found: " <<  minLength[to] << endl;
             }
         }
     }
-    cout << "leaving while (!q.empty())" << endl;
 
     /* make list from predecessors */
     ret.push_front(sink);
     Point toPush = sink;
-    cout << "entering while (toPush != sourceP)" << endl;
     while (toPush != source) {
-        cout << "while..." << endl << toPush << " --> ";
         toPush = predecessor[toPush];
         cout << toPush << endl;
         ret.push_front(toPush);
