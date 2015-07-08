@@ -8,6 +8,12 @@ LDFLAGS_MAC=-I/Library/Frameworks/SDL2.framework/Headers -framework SDL2 -framew
 
 all: $(TARGET)
 
+debug: CFLAGS += -g
+debug: $(TARGET)
+
+mac: LDFLAGS = $(LDFLAGS_MAC)
+mac: $(TARGET)
+
 $(TARGET): $(OBJECTS)
 	g++ $(LDFLAGS) -o $@ $^
 

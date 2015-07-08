@@ -90,12 +90,12 @@ float ScreenObject::getHitboxWidth() const {
     return this->hitbox.getX();
 }
 
-set<Point> ScreenObject::getHitboxPoints() const {
-    set<Point> points;
-    points.insert(Point(this->getPosX() + this->hitbox.getX() / 2, this->getPosY() + this->hitbox.getY() / 2));
-    points.insert(Point(this->getPosX() + this->hitbox.getX() / 2, this->getPosY() - this->hitbox.getY() / 2));
-    points.insert(Point(this->getPosX() - this->hitbox.getX() / 2, this->getPosY() + this->hitbox.getY() / 2));
-    points.insert(Point(this->getPosX() - this->hitbox.getX() / 2, this->getPosY() - this->hitbox.getY() / 2));
+vector<Point> ScreenObject::getHitboxPoints() const {
+    vector<Point> points;
+    points.push_back(Point(this->getPosX() + this->hitbox.getX() / 2, this->getPosY() + this->hitbox.getY() / 2));
+    points.push_back(Point(this->getPosX() + this->hitbox.getX() / 2, this->getPosY() - this->hitbox.getY() / 2));
+    points.push_back(Point(this->getPosX() - this->hitbox.getX() / 2, this->getPosY() + this->hitbox.getY() / 2));
+    points.push_back(Point(this->getPosX() - this->hitbox.getX() / 2, this->getPosY() - this->hitbox.getY() / 2));
     return points;
 }
 

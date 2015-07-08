@@ -15,13 +15,13 @@ void Edge::setEnd(Point end) {
 }
 
 /* getters */
-Point Edge::getBegin() {
+Point Edge::getBegin() const {
     return this->begin;
 }
-Point Edge::getEnd() {
+Point Edge::getEnd() const {
     return this->end;
 }
-float Edge::getMagnitude() {
+float Edge::getMagnitude() const {
     return this->magnitude;
 }
 
@@ -30,7 +30,7 @@ bool Edge::operator<(const Edge &edge) const {
     return edge.magnitude < this->magnitude;
 }
 
-ostream& operator<<(ostream &output, Edge &e) {
+ostream& operator<<(ostream &output, const Edge &e) {
     Point b = e.getBegin();
     Point end = e.getEnd();
     output << b << "---" << end;
@@ -38,7 +38,8 @@ ostream& operator<<(ostream &output, Edge &e) {
 }
 
 bool Edge::operator==(const Edge &e) const {
-    return (e.begin == this->begin and e.end == this->end) or (e.begin == this->end and e.end == this->begin);
+    cout << *this << " == " << e << "?" << endl;
+    return (e.begin == this->begin && e.end == this->end) || (e.begin == this->end && e.end == this->begin);
 }
 
 

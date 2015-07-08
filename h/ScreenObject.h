@@ -2,7 +2,6 @@
 #define	SCREENOBJECT_H
 
 #include <vector>
-#include <set>
 #include <string>
 
 #include "Point.h"
@@ -52,7 +51,7 @@ public:
 	Screen* getScreen() const;
     float getHitboxHeight() const;
     float getHitboxWidth() const;
-    set<Point> getHitboxPoints() const;
+    vector<Point> getHitboxPoints() const;
 
     static bool greaterThan(ScreenObject* a, ScreenObject* b);
     bool collides(float x, float y) const;

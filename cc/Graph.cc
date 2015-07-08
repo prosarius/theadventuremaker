@@ -11,37 +11,45 @@ void Graph::operator+=(const Graph &g) {
 
 /* setters */
 void Graph::addNode(Point node) {
-    this->nodes.insert(node);
+    for(auto n: this->nodes)
+        if(node == n)
+            return;
+    this->nodes.push_back(node);
 }
-void Graph::addNodes(set<Point> nodes) {
-    this->nodes.insert(nodes.begin(), nodes.end());
+void Graph::addNodes(vector<Point> nodes) {
+    for(auto n: nodes)
+        this->addNode(n);
 }
 void Graph::addEdge(Edge edge) {
-    this->edges.insert(edge);
+    for(auto e: this->edges)
+        if(e == edge)
+            return;
+    this->edges.push_back(edge);
 }
 void Graph::addEdge(Point from, Point to) {
-    this->edges.insert(Edge(from, to));
+    this->addEdge(Edge(from, to));
 }
-void Graph::addEdges(set<Edge> edges) {
-    this->edges.insert(edges.begin(), edges.end());
+void Graph::addEdges(vector<Edge> edges) {
+    for(auto e: edges)
+        this->addEdge(e);
 }
 
 /* getters */
-set<Edge> Graph::getEdges() const {
+vector<Edge> Graph::getEdges() const {
     return this->edges;
 }
 
-set<Edge> Graph::getEdges(const Point p) const {
-    set<Edge> ret;
+vector<Edge> Graph::getEdges(const Point p) const {
+    vector<Edge> ret;
     for(auto e: this->edges) {
         if(e.getBegin() != p && e.getEnd() != p)
             continue;
-        ret.insert(e);
+        ret.push_back(e);
     }
     return ret;
 }
 
-set<Point> Graph::getNodes() const {
+vector<Point> Graph::getNodes() const {
     return this->nodes;
 }
 
@@ -58,7 +66,13 @@ list<Point> Graph::getShortestPath(Point source, Point sink) const {
     cout << "init minLength with -1" << endl;
     /* set length to infinite */
     for (auto n: this->nodes) {
-        Point p = *(this->nodes.find(n));
+        Point p;
+        for(auto f: this->nodes)
+            if(f == n){
+                p = f;
+                break;
+            }
+
         minLength[p] = -1;
         cout << p << " : " << minLength[p] << endl;
     }
@@ -101,14 +115,23 @@ list<Point> Graph::getShortestPath(Point source, Point sink) const {
         for(auto e: this->getEdges(p)) {
             Point to;
             /* find corresponding node */
-            if(e.getBegin() == p)
-                to = *(this->nodes.find(e.getEnd()));
+            if (e.getBegin() == p)
+                for(auto n: this->nodes)
+                    if(n == e.getEnd()) {
+                        to = n;
+                        break;
+                    }
             else
-                to = *(this->nodes.find(e.getBegin()));
+                for(auto n: this->nodes)
+                    if(n == e.getBegin()) {
+                        to = n;
+                        break;
+                    }
+
             cout << "found corresponding node: " << to << " minLength[to]: " << minLength[to] << " : " << to << endl;
-            /* if not visited yet, insert into queue and set predecessor*/
+            /* if not visited yet, push_back into queue and set predecessor*/
             if(minLength[to] == -1) {
-                cout << "not visited yet. insert into q" << endl;
+                cout << "not visited yet. push_back into q" << endl;
                 q.insert(to);
                 minLength[to] = e.getMagnitude();
                 predecessor[to] = p;

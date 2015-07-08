@@ -3,13 +3,14 @@
 
 #include "Point.h"
 #include "Edge.h"
+#include <vector>
 #include <set>
 #include <list>
 
 using namespace std;
 class Graph {
-    set<Point> nodes;
-    set<Edge> edges;
+    vector<Point> nodes;
+    vector<Edge> edges;
 
 public:
     /* operators */
@@ -17,15 +18,15 @@ public:
 
     /* setters */
     void addNode(Point node);
-    void addNodes(set<Point> nodes);
+    void addNodes(vector<Point> nodes);
     void addEdge(Edge edge);
     void addEdge(Point from, Point to);
-    void addEdges(set<Edge> edges);
+    void addEdges(vector<Edge> edges);
 
     /* getters */
-    set<Edge> getEdges() const;
-    set<Edge> getEdges(const Point p) const;
-    set<Point> getNodes() const;
+    vector<Edge> getEdges() const;
+    vector<Edge> getEdges(const Point p) const;
+    vector<Point> getNodes() const;
 
     /* other methods */
     list<Point> getShortestPath(Point source, Point sink) const;
