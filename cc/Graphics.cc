@@ -1,7 +1,7 @@
 #include "../h/Graphics.h"
 
 using namespace std;
-Graphics::Graphics(Screen* screen) : screen(screen) {
+Graphics::Graphics(Screen* screen) : screen(screen), debug(false){
 	this->window = NULL;
 	this->renderer = NULL;
 
@@ -29,10 +29,11 @@ void Graphics::draw() {
 	this->clear();
 	this->drawBackground();
     this->screen->sortScreenObjects();
-	for(auto object: this->screen->getScreenObjects())
+	for (auto object: this->screen->getScreenObjects())
 		this->drawScreenObject(object);
-    for(auto e: this->screen->graph.getEdges())
-        SDL_RenderDrawLine(this->renderer, e.getBegin().getX(), e.getBegin().getY(), e.getEnd().getX(), e.getEnd().getY());
+    if (this->debug)
+        for (auto e: this->screen->graph.getEdges())
+            SDL_RenderDrawLine(this->renderer, e.getBegin().getX(), e.getBegin().getY(), e.getEnd().getX(), e.getEnd().getY());
 	this->present();
 }
 void Graphics::drawBackground() {
@@ -73,10 +74,19 @@ void Graphics::run() {
 		while(SDL_PollEvent(&event)) {
 			switch(event.type) {
 				case SDL_KEYDOWN:
-					if(event.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
-					   	running = false;
-					//	cout << "escape" << endl;
-					}
+                    switch (event.key.keysym.scancode) {
+                        case SDL_SCANCODE_ESCAPE:
+                            running = false;
+                            break;
+                        case SDL_SCANCODE_D:
+                            if (this->debug)
+                                this->debug = false;
+                            else
+                                this->debug = true;
+                            break;
+                        default:
+                            break;
+                    }
 					break;
 				case SDL_MOUSEBUTTONDOWN:
 					if(event.button.button == SDL_BUTTON_LEFT) {

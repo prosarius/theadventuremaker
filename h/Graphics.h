@@ -19,6 +19,7 @@ class Graphics {
 	SDL_Event* mainEvent;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
+    bool debug;
 
 	SDL_Texture* getTextureFromPath(const string &texturePath);
 	void draw();

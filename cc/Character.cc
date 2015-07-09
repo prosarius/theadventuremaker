@@ -17,6 +17,8 @@ void Character::setTarget(const float &x, const float &y) {
 //    cout << "clicked: ( " << x << " | " << y << " )\ttarget: ( " << this->target.getX() << " | " << this->target.getY() << " )" << endl;
     list<Point> temp = this->screen->getShortestWay(this->position, this->target);
     cout << temp.size() << endl;
+    for(auto n: temp)
+        cout << n << endl;
     this->path = temp;
 }
 void Character::setSpeed(float speed) {

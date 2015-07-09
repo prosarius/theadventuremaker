@@ -106,11 +106,11 @@ ScreenObject* Screen::collidesWith(Point from, Point to) const {
     return collidingObject;
 }
 
-Graph Screen::buildGraph(Point from, Point to, set<ScreenObject*> *collidingObjects = NULL) {
+Graph Screen::buildGraph(Point from, Point to, vector<ScreenObject*> *collidingObjects = NULL) {
     cout << "buildGraph is called" << endl;
     if(!collidingObjects) {
         cout << "\tfor the first time" << endl;
-        set<ScreenObject*> objSet;
+        vector<ScreenObject*> objSet;
         collidingObjects = &objSet;
     }
     this->graph.clear();
@@ -123,52 +123,37 @@ Graph Screen::buildGraph(Point from, Point to, set<ScreenObject*> *collidingObje
         return graph;
     }
     cout << "found colliding object: " << collidingObject->getName() << endl;
-    collidingObjects->insert(collidingObject);
+    collidingObjects->push_back(collidingObject);
     vector<Point> points = collidingObject->getHitboxPoints();
     cout << "Hitbox points:" << endl;
     for (auto p: points) {
-        cout << "(" << p.getX() << "|" << p.getY() << ")" << endl;
+        cout << "Hitbox Point: " << p << endl;
     }
     graph.addNodes(points);
     for (auto point: points) {
         cout << "Point: " << point << endl;
         /* edge from start */
         ScreenObject* collidingObject = this->collidesWith(from, point);
-        if (!collidingObject) {
+        if (!collidingObject)
             graph.addEdge(from, point);
-        }
-        else if (collidingObjects->find(collidingObject) != collidingObjects->end())
-            ; /* void */
-        else
-            graph += this->buildGraph(from, point, collidingObjects);
 
         /* edge to end */
         collidingObject = this->collidesWith(point, to);
-        if (!collidingObject) {
+        if (!collidingObject)
             graph.addEdge(point, to);
-        }
-        else if (collidingObjects->find(collidingObject) != collidingObjects->end())
-            ; /* void */
-        else
-            graph += this->buildGraph(point, to, collidingObjects);
 
         /* edges from node to node */
         for(auto sndPoint: points) {
             if (point == sndPoint)
                 continue;
             ScreenObject* collidingObject = this->collidesWith(point, sndPoint);
-            if (!collidingObject) {
+            if (!collidingObject)
                 graph.addEdge(point, sndPoint);
-            }
-            else if (collidingObjects->find(collidingObject) != collidingObjects->end())
-                ; /* void */
-            else
-                graph += this->buildGraph(point, sndPoint, collidingObjects);
         }
     }
     cout << "Nodes:" << endl;
     for (auto p: graph.getNodes()) {
-        cout << "(" << p.getX() << "|" << p.getY() << ")" << endl;
+        cout << "Node in Graph: " << p << endl;
     }
     cout << "buildGraph returns" << endl;
     return graph;

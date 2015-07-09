@@ -111,3 +111,9 @@ bool ScreenObject::collides(float x, float y) const{
          && y < this->getPosY() + this->hitbox.getY() / 2
          );
 }
+
+/* operators */
+
+bool ScreenObject::operator==(const ScreenObject &o) const {
+    return this->name == o.name && this->position == o.position;
+}

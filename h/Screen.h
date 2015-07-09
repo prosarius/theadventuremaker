@@ -33,7 +33,7 @@ class Screen {
 
     ScreenObject* collidesWith(float x, float y) const;
     ScreenObject* collidesWith(Point from, Point to) const;
-    Graph buildGraph(Point from, Point to, set<ScreenObject*> *collidingObjects);
+    Graph buildGraph(Point from, Point to, vector<ScreenObject*> *collidingObjects);
 public:
     Graph graph;
 

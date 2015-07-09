@@ -140,8 +140,10 @@ list<Point> Graph::getShortestPath(Point source, Point sink) const {
     ret.push_front(sink);
     Point toPush = sink;
     while (toPush != source) {
+        if(minLength[toPush] == -1)
+            break;
         toPush = predecessor[toPush];
-        cout << toPush << endl;
+        cout << "predecessor to push: " << toPush << endl;
         ret.push_front(toPush);
     }
     cout << "leaving Dijkstra" << endl;

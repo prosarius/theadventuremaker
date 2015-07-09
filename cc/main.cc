@@ -6,7 +6,7 @@
 #include "../h/Character.h"
 
 int main(void) {
-	Screen screen("Wald", 1280, 800, 300, 0.5, "screens/garden.png");
+	Screen screen("Wald", 1280, 800, 300, 0.2, "screens/garden.png");
 
 	Character strichmann("Strichmann", 100, 200, 100, 500, "characters/strichmann.png", 2, 0.4, 0.95);
     strichmann.setSpeed(2);

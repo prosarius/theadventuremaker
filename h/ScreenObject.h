@@ -55,6 +55,7 @@ public:
 
     static bool greaterThan(ScreenObject* a, ScreenObject* b);
     bool collides(float x, float y) const;
+    bool operator==(const ScreenObject &o) const;
 };
 
 #endif	/* SCREENOBJECT_H */
