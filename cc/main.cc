@@ -9,7 +9,7 @@ int main(void) {
 	Screen screen("Wald", 1280, 800, 300, 0.2, "screens/garden.png");
 
 	Character strichmann("Strichmann", 100, 200, 100, 500, "characters/strichmann.png", 2, 0.4, 0.95);
-    strichmann.setSpeed(2);
+    strichmann.setSpeed(3);
 	strichmann.getActiveAnimation()->addImage("characters/strichmann1.png");
 	strichmann.getActiveAnimation()->addImage("characters/strichmann2.png");
 

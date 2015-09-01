@@ -3,7 +3,11 @@
 using namespace std;
 /* Constructors */
 ScreenObject::ScreenObject(const string &name, const int width, const int height, const int x, const int y, const string &texturePath, float pivotX, float pivotY, float hitboxWidth, float hitboxHeight)
-	: name(name), size(width, height), position(x, y), pivot(pivotX, pivotY), hitbox(hitboxWidth, hitboxHeight), screen(NULL) {
+	: name(name), size(width, height), position(x, y), pivot(pivotX, pivotY), screen(NULL) {
+    this->hitbox.push_back(Point(x - hitboxWidth / 2, y - hitboxHeight / 2));
+    this->hitbox.push_back(Point(x + hitboxWidth / 2, y - hitboxHeight / 2));
+    this->hitbox.push_back(Point(x + hitboxWidth / 2, y + hitboxHeight / 2));
+    this->hitbox.push_back(Point(x - hitboxWidth / 2, y + hitboxHeight / 2));
 	this->animations.push_back(Animation("", texturePath, 60, this));
 	this->setDefaultAnimation();
 }
@@ -14,9 +18,6 @@ void ScreenObject::setDefaultAnimation() {
 }
 
 /* setter */
-void ScreenObject::setHitbox(float width, float height) {
-    this->hitbox.setXY(width, height);
-}
 void ScreenObject::addAnimation(Animation animation) {
 	this->animations.push_back(animation);
 	animation.addScreenObject(this);
@@ -82,21 +83,8 @@ Screen* ScreenObject::getScreen() const {
 	return this->screen;
 }
 
-float ScreenObject::getHitboxHeight() const {
-    return this->hitbox.getY();
-}
-
-float ScreenObject::getHitboxWidth() const {
-    return this->hitbox.getX();
-}
-
-vector<Point> ScreenObject::getHitboxPoints() const {
-    vector<Point> points;
-    points.push_back(Point(this->getPosX() + this->hitbox.getX() / 2, this->getPosY() + this->hitbox.getY() / 2));
-    points.push_back(Point(this->getPosX() + this->hitbox.getX() / 2, this->getPosY() - this->hitbox.getY() / 2));
-    points.push_back(Point(this->getPosX() - this->hitbox.getX() / 2, this->getPosY() + this->hitbox.getY() / 2));
-    points.push_back(Point(this->getPosX() - this->hitbox.getX() / 2, this->getPosY() - this->hitbox.getY() / 2));
-    return points;
+vector<Point> ScreenObject::getHitbox() const {
+    return hitbox;
 }
 
 /* other methods */
@@ -105,11 +93,29 @@ bool ScreenObject::greaterThan(ScreenObject* a, ScreenObject* b) {
 }
 
 bool ScreenObject::collides(float x, float y) const{
-    return (x > this->getPosX() - this->hitbox.getX() / 2
-         && x < this->getPosX() + this->hitbox.getX() / 2
-         && y > this->getPosY() - this->hitbox.getY() / 2
-         && y < this->getPosY() + this->hitbox.getY() / 2
-         );
+
+    Point* out = NULL;
+
+    for (auto p: this->hitbox.getPoints()) {
+        if (!out) {
+            out = new Point(p);
+            continue;
+        }
+        if (out->getX() < p.getX())
+            out->setX(p.getX());
+        if (out->getY() < p.getY())
+            out->setY(p.getY());
+    }
+
+    Edge ed(*out, Point(x, y));
+    delete out;
+
+    int cnt = 0;
+    for (auto e: this->hitbox.getEdges())
+        if (e.intersects(ed))
+            cnt++;
+
+    return (cnt & 1);
 }
 
 /* operators */

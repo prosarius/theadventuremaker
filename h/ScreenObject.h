@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <list>
 
 #include "Point.h"
 #include "Animation.h"
@@ -21,7 +22,7 @@ protected:
     Point size;
 	Point position;
     Point pivot;
-    Point hitbox;
+    list<Point> hitbox;
     Point renderSize;
 	Screen* screen;
 
@@ -36,7 +37,6 @@ public:
 	void setName(const string &name);
 	void setScreen(Screen* screen);
     void setPivot(const float &x, const float &y);
-    void setHitbox(float width, float height);
 
 	Animation* getActiveAnimation() const;
 	string getName() const;
@@ -49,9 +49,7 @@ public:
     float getPivotX() const;
     float getPivotY() const;
 	Screen* getScreen() const;
-    float getHitboxHeight() const;
-    float getHitboxWidth() const;
-    vector<Point> getHitboxPoints() const;
+    list<Point> getHitbox() const;
 
     static bool greaterThan(ScreenObject* a, ScreenObject* b);
     bool collides(float x, float y) const;

@@ -32,6 +32,10 @@ public:
     Point getBegin() const;
     Point getEnd() const;
     float getMagnitude() const;
+
+    /* others */
+    bool intersects(Edge e) const;
+    float getSlope() const;
 };
 
 #endif /* EDGE_H */

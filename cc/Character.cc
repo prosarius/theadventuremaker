@@ -47,10 +47,9 @@ void Character::tick() { /* If Character is in movement this function is called 
         this->path.pop_front();
         this->tick();
         return;
-    } else {
-//        cout << this->speed << endl;
-        this->position.moveTo(front, this->speed);
-	}
+    }
+    float factor = ((float)this->getPosY() / this->screen->getHeight()) * (1 - this->screen->getSizeFactor()) + this->screen->getSizeFactor();
+    this->position.moveTo(front, this->speed * factor);
 }
 void Character::startRunning() {
 	this->getActiveAnimation()->startRunning();
